@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocomelk Gourmet - Cardápio Online</title>
+    <style>
+        :root { --dourado: #d4af37; --cacau: #2b160a; --marrom-profundo: #1a0d06; --creme: #f3e5ab; --branco: #ffffff; --sucesso: #25d366; }
+        body { background-color: var(--cacau); color: var(--creme); font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 15px; text-align: center; }
+        #aviso-fechado { background: #d9534f; color: white; padding: 15px; display: none; position: sticky; top: 0; z-index: 100; font-weight: bold; border-radius: 0 0 10px 10px; }
+        header { padding: 20px 0; }
+        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--dourado); margin-bottom: 10px; }
+        h1 { color: var(--branco); font-size: 1.8rem; margin: 10px 0; }
+        h2 { color: var(--dourado); border-bottom: 2px solid var(--dourado); display: inline-block; padding: 0 20px 5px 20px; margin: 40px 0 20px; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 1px; }
+        .vitrine { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .card-item { background: var(--marrom-profundo); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; width: 95%; max-width: 500px; text-align: left; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .card-item h3 { margin: 0 0 15px 0; color: var(--branco); font-size: 1.2rem; }
+        label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--dourado); text-transform: uppercase; margin-top: 10px; }
+        select, input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #555; background: var(--cacau); color: #fff; font-size: 1rem; box-sizing: border-box; }
+        .controles { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 50px; margin-top: 15px; }
+        .btn-qtd { background: var(--dourado); border: none; color: var(--cacau); font-size: 22px; font-weight: bold; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+        .qtd-num { color: white; font-weight: bold; font-size: 1.3rem; }
+        .checkout-area { background: var(--creme); color: var(--cacau); max-width: 500px; margin: 50px auto; padding: 25px; border-radius: 15px; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .resumo-total { background: var(--marrom-profundo); color: var(--dourado); padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 1.8rem; text-align: center; font-weight: bold; border: 2px solid var(--dourado); }
+        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 20px; font-size: 1.3rem; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div id="aviso-fechado">⚠️ Hoje estamos fechados. Responderemos seu pedido na Quarta-feira!</div>
+    <header>
+        <h1>Chocomelk Gourmet</h1>
+    </header>
+    <h2>🍫 Ovos de Colher</h2>
+    <div class="vitrine" id="listaColher"></div>
+    <h2>✨ Ovos Trufados</h2>
+    <div class="vitrine" id="listaTrufado"></div>
+    <h2>🐣 Ovos Tradicionais</h2>
+    <div class="vitrine" id="listaTradicional"></div>
+    <h2>🍬 Trufas Artesanais</h2>
+    <div class="vitrine" id="listaTrufas"></div>
+    <div class="checkout-area">
+        <h3>Finalizar Pedido</h3>
+        <label>Seu Nome:</label>
+        <input type="text" id="nome" placeholder="Nome Completo">
+        <label>Endereço de Entrega:</label>
+        <input type="text" id="endereco" placeholder="Rua, Bairro, Nº e Cidade">
+        <label>Forma de Pagamento:</label>
+        <select id="pagamento">
+            <option value="Pix">Pix</option>
+            <option value="Cartão">Cartão</option>
+            <option value="Dinheiro">Dinheiro</option>
+        </select>
+        <label>Observações:</label>
+        <textarea id="observacoes" rows="3" placeholder="Ex: Para presente, ponto de referência..."></textarea>
+        <div class="resumo-total">TOTAL: R$ <span id="totalExibido">0.00</span></div>
+        <button class="btn-finalizar" onclick="enviarPedido()">Enviar para WhatsApp</button>
+    </div>
+    <script>
+        const precosTrufas = { "Chocolate": 4, "Beijinho": 4, "Brigadeiro": 4, "Amendoim": 4, "Doce de leite": 4, "Bem casado": 4, "Passas ao rum": 4, "Café": 4, "Castanha": 5, "Maracujá": 5, "Limão": 5, "Cereja": 5, "Morango": 5, "Ameixa": 5, "Ninho": 5, "Valsa": 5 };
+        const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };
+        const precosTrufado = { "250g": 40, "350g": 55, "500g": 75, "1kg": 140 };
+        const precosTrad = { "100g": 13.5, "250g": 27, "350g": 37.5, "500g": 48.5, "1kg": 97 };
+        const ovosColher = [{ nome: "Ovo com Cerejas" }, { nome: "Ovo com M&Ms" }, { nome: "Ovo com Marshmallow" }, { nome: "Ovo com Morangos" }, { nome: "Ovo Beijinho e Brigadeiro" }];
+
+        function init() {
+            let hColher = "";
+            ovosColher.forEach((o, i) => { hColher += `<div class="card-item"><h3>${o.nome}</h3><label>Tamanho:</label><select id="p_colher_${i}" onchange="calc()"><option value="500g">500g - R$80</option><option value="350g">350g - R$65</option><option value="250g">250g - R$50</option><option value="150g">150g - R$35</option></select><label>Casca:</label><select id="c_colher_${i}"><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Crocante</option></select><label>Recheio:</label><select id="r_colher_${i}" onchange="calc()"><option>Brigadeiro</option><option>Chocolate</option><option>Maracujá</option><option>Limão</option><option>Beijinho</option><option>Doce de Leite</option><option>Ninho (+R$5)</option><option>Pistache (+R$5)</option></select><div class="controles"><button class="btn-qtd" onclick="qtd('colher_${i}',-1)">-</button><span class="qtd-num" id="q_colher_${i}">0</span><button class="btn-qtd" onclick="qtd('colher_${i}',1)">+</button></div></div>`; });
+            document.getElementById('listaColher').innerHTML = hColher;
+            let hTruf = "";
+            ["Ao Leite", "Meio Amargo", "Mesclado", "Branco"].forEach((o, i) => { hTruf += `<div class="card-item"><h3>Ovo Trufado ${o}</h3><label>Tamanho:</label><select id="p_truf_${i}" onchange="calc()"><option value="500g">500g - R$75</option><option value="350g">350g - R$55</option><option value="250g">250g - R$40</option><option value="1kg">1kg - R$140</option></select><label>Recheio:</label><select id="r_truf_${i}"><option>Chocolate</option><option>Beijinho</option><option>Maracujá</option><option>Limão</option><option>Brigadeiro</option><option>Doce de Leite</option></select><div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div>`; });
+            document.getElementById('listaTrufado').innerHTML = hTruf;
+            let hTrad = "";
+            ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"].forEach((o, i) => { hTrad += `<div class="card-item"><h3>Ovo Tradicional ${o}</h3><label>Tamanho:</label><select id="p_trad_${i}" onchange="calc()"><option value="500g">500g - R$48.50</option><option value="350g">350g - R$37.50</option><option value="250g">250g - R$27.00</option><option value="1kg">1kg - R$97.00</option><option value="100g">100g - R$13.50</option></select><div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div>`; });
+            document.getElementById('listaTradicional').innerHTML = hTrad;
+            let hTrufas = "";
+            Object.keys(precosTrufas).forEach((s, i) => { hTrufas += `<div class="card-item"><h3>Trufa de ${s}</h3><p style="color:var(--dourado); font-weight:bold;">R$ ${precosTrufas[s].toFixed(2)}</p><div class="controles"><button class="btn-qtd" onclick="qtd('trufa_${i}',-1)">-</button><span class="qtd-num" id="q_trufa_${i}">0</span><button class="btn-qtd" onclick="qtd('trufa_${i}',1)">+</button></div></div>`; });
+            document.getElementById('listaTrufas').innerHTML = hTrufas;
+        }
+
+        function qtd(id, m) {
+            let el = document.getElementById('q_' + id);
+            let val = parseInt(el.innerText) + m;
+            if (val >= 0) { el.innerText = val; calc(); }
+        }
+
+        function calc() {
+            let total = 0;
+            Object.keys(precosTrufas).forEach((s, i) => { total += parseInt(document.getElementById('q_trufa_'+i).innerText) * precosTrufas[s]; });
+            ovosColher.forEach((o, i) => {
+                let q = parseInt(document.getElementById('q_colher_'+i).innerText);
+                if (q > 0) {
+                    let v = precosColher[document.getElementById('p_colher_'+i).value];
+                    let r = document.getElementById('r_colher_'+i).value;
+                    if (r.includes("Ninho") || r.includes("Pistache")) v += 5;
+                    total += q * v;
+                }
+            });
+            for(let i=0; i<4; i++){ 
+                let qT = parseInt(document.getElementById('q_truf_'+i).innerText);
+                if(qT > 0) total += qT * precosTrufado[document.getElementById('p_truf_'+i).value];
+            }
+            for(let i=0; i<5; i++){ 
+                let qTr = parseInt(document.getElementById('q_trad_'+i).innerText);
+                if(qTr > 0) total += qTr * precosTrad[document.getElementById('p_trad_'+i).value];
+            }
+            document.getElementById('totalExibido').innerText = total.toFixed(2);
+        }
+
+        function enviarPedido() {
+            let nome = document.getElementById('nome').value;
+            let endereco = document.getElementById('endereco').value;
+            let pagamento = document.getElementById('pagamento').value;
+            let observacoes = document.getElementById('observacoes').value;
+            let total = document.getElementById('totalExibido').innerText;
+            if (!nome || total === "0.00") return alert("Por favor, preencha seu nome e escolha seus produtos!");
+            let msg = `*🍫 NOVO PEDIDO - CHOCOMELK*\n============================\n`;
+            msg += `👤 *CLIENTE:* ${nome}\n📍 *ENDEREÇO:* ${endereco || "Retirada"}\n💳 *PAGAMENTO:* ${pagamento}\n`;
+            if(observacoes) msg += `📝 *OBS:* ${observacoes}\n`;
+            msg += `============================\n\n*ITENS:*\n`;
+            ovosColher.forEach((o, i) => {
+                let q = document.getElementById('q_colher_'+i).innerText;
+                if (q > 0) msg += `✅ ${q}x ${o.nome} (${document.getElementById('p_colher_'+i).value})\n   - Casca: ${document.getElementById('c_colher_'+i).value}\n   - Recheio: ${document.getElementById('r_colher_'+i).value}\n\n`;
+            });
+            for(let i=0; i<4; i++){
+                let qT = document.getElementById('q_truf_'+i).innerText;
+                if(qT > 0) msg += `✅ ${qT}x Ovo Trufado (${document.getElementById('p_truf_'+i).value})\n   - Recheio: ${document.getElementById('r_truf_'+i).value}\n\n`;
+            }
+            const nomesTrad = ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"];
+            for(let i=0; i<5; i++){
+                let qTr = document.getElementById('q_trad_'+i).innerText;
+                if(qTr > 0) msg += `✅ ${qTr}x Ovo Tradicional ${nomesTrad[i]} (${document.getElementById('p_trad_'+i).value})\n`;
+            }
+            Object.keys(precosTrufas).forEach((s, i) => {
+                let q = document.getElementById('q_trufa_'+i).innerText;
+                if (q > 0) msg += `✅ ${q}x Trufa de ${s}\n`;
+            });
+            msg += `\n============================\n*💰 TOTAL: R$ ${total}*`;
+            window.open(`https://wa.me/5581989873733?text=${encodeURIComponent(msg)}`);
+        }
+        const dia = new Date().getDay();
+        if (dia === 1 || dia === 2) document.getElementById('aviso-fechado').style.display = 'block';
+        init();
+    </script>
+</body>
+</html>

@@ -14,21 +14,17 @@
             --sucesso: #25d366;
             --brilho: rgba(212, 175, 55, 0.5);
         }
-
         html { scroll-behavior: smooth; }
-
         body { 
             background-color: var(--cacau); 
             color: var(--creme); 
             font-family: 'Segoe UI', Roboto, sans-serif; 
             margin: 0; padding: 15px; text-align: center;
         }
-
         #aviso-fechado { 
             background: #d9534f; color: white; padding: 15px; display: none; 
             position: sticky; top: 0; z-index: 100; font-weight: bold; border-radius: 0 0 10px 10px;
         }
-
         header { padding: 20px 0; }
         .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--dourado); margin-bottom: 10px; }
         h1 { color: var(--branco); font-size: 1.8rem; margin: 10px 0; }
@@ -41,7 +37,7 @@
         .foto-item img { width: 160px; height: 220px; object-fit: cover; border: 2px solid var(--dourado); border-radius: 15px; }
         .foto-item .selo { position: absolute; bottom: 10px; left: 0; right: 0; background: rgba(0,0,0,0.7); color: var(--dourado); font-size: 0.7rem; font-weight: bold; padding: 5px; border-bottom-left-radius: 13px; border-bottom-right-radius: 13px; text-transform: uppercase; }
 
-        /* ZOOM */
+        /* MODAL ZOOM */
         #modalZoom { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
         #imgZoom { max-width: 85%; max-height: 70%; border: 4px solid var(--dourado); border-radius: 15px; }
         #legendaZoom { color: var(--branco); margin-top: 20px; font-size: 1.4rem; font-weight: bold; }
@@ -73,109 +69,31 @@
         <h1 id="topo">Ovos de Páscoa Chocomelk</h1>
     </header>
     
-<div class="vitrine-fotos">
-    <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ovos de Páscoa Chocomelk - Cardápio Online</title>
-    <style>
-        :root { 
-            --dourado: #d4af37; 
-            --cacau: #2b160a; 
-            --marrom-profundo: #1a0d06;
-            --creme: #f3e5ab; 
-            --branco: #ffffff;
-            --sucesso: #25d366;
-            --brilho: rgba(212, 175, 55, 0.5);
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body { 
-            background-color: var(--cacau); 
-            color: var(--creme); 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
-            margin: 0; padding: 15px; text-align: center;
-        }
-
-        #aviso-fechado { 
-            background: #d9534f; color: white; padding: 15px; display: none; 
-            position: sticky; top: 0; z-index: 100; font-weight: bold; border-radius: 0 0 10px 10px;
-        }
-
-        header { padding: 20px 0; }
-        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--dourado); margin-bottom: 10px; }
-        h1 { color: var(--branco); font-size: 1.8rem; margin: 10px 0; }
-
-        /* GALERIA DE FOTOS */
-        .vitrine-fotos { margin: 20px auto; max-width: 600px; }
-        .carrossel-fotos { display: flex; gap: 15px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
-        .carrossel-fotos::-webkit-scrollbar { display: none; }
-        .foto-item { flex: 0 0 160px; position: relative; cursor: pointer; transition: 0.3s; }
-        .foto-item img { width: 160px; height: 220px; object-fit: cover; border: 2px solid var(--dourado); border-radius: 15px; }
-        .foto-item .selo { position: absolute; bottom: 10px; left: 0; right: 0; background: rgba(0,0,0,0.7); color: var(--dourado); font-size: 0.7rem; font-weight: bold; padding: 5px; border-bottom-left-radius: 13px; border-bottom-right-radius: 13px; text-transform: uppercase; }
-
-        /* ZOOM */
-        #modalZoom { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
-        #imgZoom { max-width: 85%; max-height: 70%; border: 4px solid var(--dourado); border-radius: 15px; }
-        #legendaZoom { color: var(--branco); margin-top: 20px; font-size: 1.4rem; font-weight: bold; }
-        .btn-fechar { position: absolute; top: 30px; right: 30px; color: var(--branco); font-size: 40px; cursor: pointer; }
-
-        h2 { color: var(--dourado); border-bottom: 2px solid var(--dourado); display: inline-block; padding: 0 20px 5px 20px; margin: 40px 0 20px; text-transform: uppercase; font-size: 1.1rem; }
-        .vitrine { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .card-item { background: var(--marrom-profundo); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; width: 95%; max-width: 500px; text-align: left; box-sizing: border-box; }
-        .card-item h3 { margin: 0 0 15px 0; color: var(--branco); font-size: 1.2rem; }
-        label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--dourado); text-transform: uppercase; margin-top: 10px; }
-        select, input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #555; background: var(--cacau); color: #fff; font-size: 1rem; box-sizing: border-box; }
-        
-        .controles { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 50px; margin-top: 15px; }
-        .btn-qtd { background: var(--dourado); border: none; color: var(--cacau); font-size: 22px; font-weight: bold; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
-        .qtd-num { color: white; font-weight: bold; font-size: 1.3rem; }
-
-        .checkout-area { background: var(--creme); color: var(--cacau); max-width: 500px; margin: 50px auto; padding: 25px; border-radius: 15px; text-align: left; }
-        .resumo-total { background: var(--marrom-profundo); color: var(--dourado); padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 1.8rem; text-align: center; font-weight: bold; border: 2px solid var(--dourado); }
-        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 20px; font-size: 1.3rem; font-weight: bold; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
-        .btn-voltar { background: #555; color: var(--creme); border: 1px solid var(--dourado); width: 100%; padding: 15px; font-size: 1rem; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; }
-    </style>
-</head>
-<body>
-
-    <div id="aviso-fechado">⚠️ Hoje estamos fechados. Responderemos seu pedido na Quarta-feira!</div>
-
-    <header>
-        <img src="logomarca_chocomelk.png" alt="Chocomelk" class="logo-img">
-        <h1 id="topo">Ovos de Páscoa Chocomelk</h1>
-    </header>
-    
-<div class="vitrine-fotos">
-    <div class="carrossel-fotos">
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/foto1.jpg', 'Ovo Chocomelk Especial')">
-        <img src="https://i.ibb.co/XfjgqgyV/foto1.jpg" alt="Foto"><div class="selo">Especial</div>
+    <div class="vitrine-fotos">
+        <div class="carrossel-fotos">
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/f1.jpg', 'Ovo Chocomelk 1')"><img src="https://i.ibb.co/XfjgqgyV/f1.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/f2.jpg', 'Ovo Chocomelk 2')"><img src="https://i.ibb.co/RTZqtmrB/f2.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/f3.jpg', 'Ovo Chocomelk 3')"><img src="https://i.ibb.co/fG9qKD1F/f3.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/f4.jpg', 'Ovo Chocomelk 4')"><img src="https://i.ibb.co/7N8bkw5r/f4.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/f5.jpg', 'Ovo Chocomelk 5')"><img src="https://i.ibb.co/K8j6Fw1/f5.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/f6.jpg', 'Ovo Chocomelk 6')"><img src="https://i.ibb.co/vxKTSbsS/f6.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/f7.jpg', 'Ovo Chocomelk 7')"><img src="https://i.ibb.co/jYKg1bb/f7.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/99pgmZHk/f8.jpg', 'Ovo Chocomelk 8')"><img src="https://i.ibb.co/99pgmZHk/f8.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/4ZppJ7D1/f9.jpg', 'Ovo Chocomelk 9')"><img src="https://i.ibb.co/4ZppJ7D1/f9.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/N2T30BMB/f10.jpg', 'Ovo Chocomelk 10')"><img src="https://i.ibb.co/N2T30BMB/f10.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/PZnXXchM/f11.jpg', 'Ovo Chocomelk 11')"><img src="https://i.ibb.co/PZnXXchM/f11.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9HS8LZs3/f12.jpg', 'Ovo Chocomelk 12')"><img src="https://i.ibb.co/9HS8LZs3/f12.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/1Y4gyXRf/f13.jpg', 'Ovo Chocomelk 13')"><img src="https://i.ibb.co/1Y4gyXRf/f13.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/TxQQbfdt/f14.jpg', 'Ovo Chocomelk 14')"><img src="https://i.ibb.co/TxQQbfdt/f14.jpg"><div class="selo">Confira</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9mbQkL1b/f15.jpg', 'Ovo Chocomelk 15')"><img src="https://i.ibb.co/9mbQkL1b/f15.jpg"><div class="selo">Confira</div></div>
+        </div>
     </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/foto2.jpg', 'Ovo de Colher')">
-        <img src="https://i.ibb.co/RTZqtmrB/foto2.jpg" alt="Foto"><div class="selo">Colher</div>
+
+    <div id="modalZoom">
+        <span class="btn-fechar" onclick="fecharZoom()">&times;</span>
+        <img id="imgZoom" src="" alt="Zoom">
+        <div id="legendaZoom"></div>
     </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/foto3.jpg', 'Ovo Trufado')">
-        <img src="https://i.ibb.co/fG9qKD1F/foto3.jpg" alt="Foto"><div class="selo">Trufado</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/foto4.jpg', 'Delícia de Páscoa')">
-        <img src="https://i.ibb.co/7N8bkw5r/foto4.jpg" alt="Foto"><div class="selo">Novidade</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/foto5.jpg', 'Ovo Kids')">
-        <img src="https://i.ibb.co/K8j6Fw1/foto5.jpg" alt="Foto"><div class="selo">Kids</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/foto6.jpg', 'Bombons Sortidos')">
-        <img src="https://i.ibb.co/vxKTSbsS/foto6.jpg" alt="Foto"><div class="selo">Bombons</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/foto7.jpg', 'Cesta de Páscoa')">
-        <img src="https://i.ibb.co/jYKg1bb/foto7.jpg" alt="Foto"><div class="selo">Cestas</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/999ZRqFQ/IMG-20250406-WA0029.jpg', 'Ovo de Morango')">
-        <img src="https://i.ibb.co/999ZRqFQ/IMG-20250406-WA0029.jpg" alt="Foto"><div class="selo">Morango</div>
-    </div>
-</div>
 
     <h2>🍫 Ovos de Colher</h2>
     <div class="vitrine" id="listaColher"></div>
@@ -219,124 +137,14 @@
     </div>
 
     <script>
-        function abrirZoom(src, leg) { document.getElementById('imgZoom').src = src; document.getElementById('legendaZoom').innerText = leg; document.getElementById('modalZoom').style.display = 'flex'; }
-        function fecharZoom() { document.getElementById('modalZoom').style.display = 'none'; }
-
-        let carrinhoTrufas = [];
-        const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };
-        const precosTrufado = { "250g": 40, "350g": 55, "500g": 75, "1kg": 140 };
-        const precosTrad = { "100g": 13.5, "250g": 27, "350g": 37.5, "500g": 48.5, "1kg": 97 };
-        const ovosColher = [{nome:"Ovo com Cerejas"},{nome:"Ovo com M&Ms"},{nome:"Ovo com Marshmallow"},{nome:"Ovo com Morangos"},{nome:"Ovo Beijinho e Brigadeiro"}];
-
-        function init() {
-            let hColher = "";
-            ovosColher.forEach((o, i) => {
-                hColher += `<div class="card-item"><h3>${o.nome}</h3>
-                <label>Tamanho:</label><select id="p_colher_${i}" onchange="calc()"><option value="500g">500g - R$80</option><option value="350g">350g - R$65</option><option value="250g">250g - R$50</option><option value="150g">150g - R$35</option></select>
-                <label>Casca:</label><select id="c_colher_${i}"><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Crocante</option></select>
-                <label>Recheio:</label><select id="r_colher_${i}" onchange="calc()"><option>Brigadeiro</option><option>Chocolate</option><option>Maracujá</option><option>Limão</option><option>Beijinho</option><option>Doce de Leite</option><option>Ninho (+R$5)</option><option>Pistache (+R$5)</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('colher_${i}',-1)">-</button><span class="qtd-num" id="q_colher_${i}">0</span><button class="btn-qtd" onclick="qtd('colher_${i}',1)">+</button></div></div>`;
-            });
-            document.getElementById('listaColher').innerHTML = hColher;
-
-            let hTruf = "";
-            ["Ao Leite", "Meio Amargo", "Mesclado", "Branco"].forEach((o, i) => {
-                hTruf += `<div class="card-item"><h3>Ovo Trufado ${o}</h3>
-                <label>Tamanho:</label><select id="p_truf_${i}" onchange="calc()"><option value="500g">500g - R$75</option><option value="350g">350g - R$55</option><option value="250g">250g - R$40</option><option value="1kg">1kg - R$140</option></select>
-                <label>Recheio:</label><select><option>Chocolate</option><option>Beijinho</option><option>Maracujá</option><option>Limão</option><option>Brigadeiro</option><option>Doce de Leite</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div>`;
-            });
-            document.getElementById('listaTrufado').innerHTML = hTruf;
-
-            let hTrad = "";
-            ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"].forEach((o, i) => {
-                hTrad += `<div class="card-item"><h3>Ovo Tradicional ${o}</h3>
-                <label>Tamanho:</label><select id="p_trad_${i}" onchange="calc()"><option value="500g">500g - R$48.50</option><option value="350g">350g - R$37.50</option><option value="250g">250g - R$27.00</option><option value="1kg">1kg - R$97.00</option><option value="100g">100g - R$13.50</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div>`;
-            });
-            document.getElementById('listaTradicional').innerHTML = hTrad;
+        function abrirZoom(src, leg) { 
+            document.getElementById('imgZoom').src = src; 
+            document.getElementById('legendaZoom').innerText = leg; 
+            document.getElementById('modalZoom').style.display = 'flex'; 
         }
-
-        function addTrufa() { let s = document.getElementById('selectSabor').value.split('|'); carrinhoTrufas.push({sabor: s[0], preco: parseFloat(s[1])}); renderSacola(); }
-        function renderSacola() { document.getElementById('sacola').style.display = carrinhoTrufas.length ? 'block' : 'none'; document.getElementById('itensSacola').innerHTML = carrinhoTrufas.map((t, i) => `<div style="display:flex; justify-content:space-between; margin:5px 0;">${t.sabor} <button onclick="removerTrufa(${i})" style="color:red; background:none; border:none; font-weight:bold;">X</button></div>`).join(''); calc(); }
-        function removerTrufa(i) { carrinhoTrufas.splice(i, 1); renderSacola(); }
-        function qtd(id, m) { let el = document.getElementById('q_'+id); let v = parseInt(el.innerText)+m; if(v>=0){ el.innerText=v; calc(); } }
-
-        function calc() {
-            let total = 0;
-            carrinhoTrufas.forEach(t => total += t.preco);
-            ovosColher.forEach((o, i) => {
-                let q = parseInt(document.getElementById('q_colher_'+i).innerText);
-                if (q > 0) {
-                    let v = precosColher[document.getElementById('p_colher_'+i).value];
-                    let r = document.getElementById('r_colher_'+i).value;
-                    if (r.includes("Ninho") || r.includes("Pistache")) v += 5;
-                    total += q * v;
-                }
-            });
-            for(let i=0; i<4; i++){ let q = parseInt(document.getElementById('q_truf_'+i).innerText); if(q>0) total += q * precosTrufado[document.getElementById('p_truf_'+i).value]; }
-            for(let i=0; i<5; i++){ let q = parseInt(document.getElementById('q_trad_'+i).innerText); if(q>0) total += q * precosTrad[document.getElementById('p_trad_'+i).value]; }
-            document.getElementById('totalExibido').innerText = total.toFixed(2);
+        function fecharZoom() { 
+            document.getElementById('modalZoom').style.display = 'none'; 
         }
-
-        function enviarPedido() {
-            let n = document.getElementById('nome').value;
-            let t = document.getElementById('totalExibido').innerText;
-            if(!n || t === "0.00") return alert("Preencha seu nome e escolha os produtos!");
-            window.open(`https://wa.me/5581989873733?text=${encodeURIComponent("Pedido de " + n + " - Total R$ " + t)}`);
-        }
-
-        const dia = new Date().getDay();
-        if (dia === 1 || dia === 2) document.getElementById('aviso-fechado').style.display = 'block';
-        init();
-    </script>
-</body>
-</html>
-
-    <h2>🍫 Ovos de Colher</h2>
-    <div class="vitrine" id="listaColher"></div>
-
-    <h2>✨ Ovos Trufados</h2>
-    <div class="vitrine" id="listaTrufado"></div>
-
-    <h2>🐣 Ovos Tradicionais</h2>
-    <div class="vitrine" id="listaTradicional"></div>
-
-    <h2>🍬 Trufas Artesanais</h2>
-    <div class="vitrine">
-        <div class="card-item">
-            <h3>Selecione os sabores</h3>
-            <div style="display: flex; gap: 10px;">
-                <select id="selectSabor">
-                    <optgroup label="Clássicas - R$ 4,00">
-                        <option value="Chocolate|4">Chocolate</option><option value="Beijinho|4">Beijinho</option><option value="Brigadeiro|4">Brigadeiro</option><option value="Amendoim|4">Amendoim</option><option value="Doce de leite|4">Doce de leite</option><option value="Bem casado|4">Bem casado</option><option value="Passas ao rum|4">Passas ao rum</option><option value="Café|4">Café</option>
-                    </optgroup>
-                    <optgroup label="Especiais - R$ 5,00">
-                        <option value="Castanha|5">Castanha</option><option value="Maracujá|5">Maracujá</option><option value="Limão|5">Limão</option><option value="Cereja|5">Cereja</option><option value="Morango|5">Morango</option><option value="Ameixa|5">Ameixa</option><option value="Ninho|5">Ninho</option><option value="Valsa|5">Valsa</option>
-                    </optgroup>
-                </select>
-                <button style="background:var(--sucesso); color:white; border:none; padding:0 15px; border-radius:8px;" onclick="addTrufa()">ADD</button>
-            </div>
-            <div id="sacola" style="margin-top:15px; display:none; background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; border:1px dashed var(--dourado);">
-                <div id="itensSacola"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="checkout-area">
-        <h3>Finalizar Pedido</h3>
-        <input type="text" id="nome" placeholder="Seu Nome">
-        <input type="text" id="endereco" placeholder="Endereço">
-        <select id="pagamento"><option>Pix</option><option>Cartão</option><option>Dinheiro</option></select>
-        <textarea id="obs" placeholder="Observações..." rows="2" style="margin-top:10px;"></textarea>
-        <div class="resumo-total">TOTAL: R$ <span id="totalExibido">0.00</span></div>
-        <button class="btn-finalizar" onclick="enviarPedido()">Enviar para WhatsApp</button>
-        <button class="btn-voltar" onclick="window.scrollTo(0,0)">⬅️ Voltar ao Início</button>
-    </div>
-
-    <script>
-        function abrirZoom(src, leg) { document.getElementById('imgZoom').src = src; document.getElementById('legendaZoom').innerText = leg; document.getElementById('modalZoom').style.display = 'flex'; }
-        function fecharZoom() { document.getElementById('modalZoom').style.display = 'none'; }
 
         let carrinhoTrufas = [];
         const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };

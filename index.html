@@ -73,33 +73,21 @@
         <h1 id="topo">Ovos de Páscoa Chocomelk</h1>
     </header>
     
-<div class="vitrine-fotos">
-    <div class="carrossel-fotos">
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/foto1.jpg', 'Ovo Chocomelk Especial')">
-        <img src="https://i.ibb.co/XfjgqgyV/foto1.jpg" alt="Foto"><div class="selo">Especial</div>
+    <div class="vitrine-fotos">
+        <div class="carrossel-fotos">
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/1.jpg', 'Ovo Especial Chocomelk')"><img src="https://i.ibb.co/XfjgqgyV/1.jpg"><div class="selo">Especial</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/2.jpg', 'Ovo de Colher Brigadeiro')"><img src="https://i.ibb.co/RTZqtmrB/2.jpg"><div class="selo">Colher</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/3.jpg', 'Ovo Trufado Gourmet')"><img src="https://i.ibb.co/fG9qKD1F/3.jpg"><div class="selo">Trufado</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/4.jpg', 'Cesta de Páscoa')"><img src="https://i.ibb.co/7N8bkw5r/4.jpg"><div class="selo">Cestas</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/999ZRqFQ/IMG-20250406-WA0029.jpg', 'Ovo de Colher Morango')"><img src="https://i.ibb.co/999ZRqFQ/IMG-20250406-WA0029.jpg"><div class="selo">Destaque</div></div>
+        </div>
     </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/foto2.jpg', 'Ovo de Colher')">
-        <img src="https://i.ibb.co/RTZqtmrB/foto2.jpg" alt="Foto"><div class="selo">Colher</div>
+
+    <div id="modalZoom">
+        <span class="btn-fechar" onclick="fecharZoom()">&times;</span>
+        <img id="imgZoom" src="" alt="Zoom">
+        <div id="legendaZoom"></div>
     </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/foto3.jpg', 'Ovo Trufado')">
-        <img src="https://i.ibb.co/fG9qKD1F/foto3.jpg" alt="Foto"><div class="selo">Trufado</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/foto4.jpg', 'Delícia de Páscoa')">
-        <img src="https://i.ibb.co/7N8bkw5r/foto4.jpg" alt="Foto"><div class="selo">Novidade</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/foto5.jpg', 'Ovo Kids')">
-        <img src="https://i.ibb.co/K8j6Fw1/foto5.jpg" alt="Foto"><div class="selo">Kids</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/foto6.jpg', 'Bombons Sortidos')">
-        <img src="https://i.ibb.co/vxKTSbsS/foto6.jpg" alt="Foto"><div class="selo">Bombons</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/foto7.jpg', 'Cesta de Páscoa')">
-        <img src="https://i.ibb.co/jYKg1bb/foto7.jpg" alt="Foto"><div class="selo">Cestas</div>
-    </div>
-    <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/999ZRqFQ/IMG-20250406-WA0029.jpg', 'Ovo de Morango')">
-        <img src="https://i.ibb.co/999ZRqFQ/IMG-20250406-WA0029.jpg" alt="Foto"><div class="selo">Morango</div>
-    </div>
-</div>
 
     <h2>🍫 Ovos de Colher</h2>
     <div class="vitrine" id="listaColher"></div>
@@ -143,8 +131,14 @@
     </div>
 
     <script>
-        function abrirZoom(src, leg) { document.getElementById('imgZoom').src = src; document.getElementById('legendaZoom').innerText = leg; document.getElementById('modalZoom').style.display = 'flex'; }
-        function fecharZoom() { document.getElementById('modalZoom').style.display = 'none'; }
+        function abrirZoom(src, leg) { 
+            document.getElementById('imgZoom').src = src; 
+            document.getElementById('legendaZoom').innerText = leg; 
+            document.getElementById('modalZoom').style.display = 'flex'; 
+        }
+        function fecharZoom() { 
+            document.getElementById('modalZoom').style.display = 'none'; 
+        }
 
         let carrinhoTrufas = [];
         const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };

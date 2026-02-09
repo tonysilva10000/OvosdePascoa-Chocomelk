@@ -3,123 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardápio Chocomelk</title>
+    <title>Chocomelk - Cardápio Completo</title>
     <style>
-        :root { --dourado: #d4af37; --cacau: #2b160a; --creme: #f3e5ab; --branco: #ffffff; }
-        body { background-color: var(--cacau); color: var(--creme); font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
-        
-        /* HEADER */
-        .logo-img { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--dourado); }
-        
-        /* CARROSSEL */
-        .carrossel { display: flex; gap: 10px; overflow-x: auto; padding: 10px; margin-bottom: 20px; }
-        .item-foto { flex: 0 0 140px; cursor: pointer; }
-        .item-foto img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 1px solid var(--dourado); }
+        :root { 
+            --dourado: #d4af37; 
+            --cacau: #1a0d06; 
+            --marrom-claro: #2b160a;
+            --creme: #f3e5ab; 
+            --sucesso: #25d366;
+        }
+        body { 
+            background-color: var(--cacau); 
+            color: var(--creme); 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; padding: 0; text-align: center;
+        }
 
-        /* MODAL DE ZOOM - ESTE É O QUE IMPORTA */
-        #camadaZoom {
-            display: none; /* Começa escondido */
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 99999; /* Fica na frente de TUDO */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* AVISO DE FECHAMENTO (Segunda e Terça) */
+        #aviso-loja { 
+            background: #d9534f; color: white; padding: 12px; 
+            display: none; position: sticky; top: 0; z-index: 1000; font-weight: bold;
         }
-        #fotoGrande {
-            max-width: 90%;
-            max-height: 70%;
-            border: 2px solid var(--dourado);
-            border-radius: 8px;
+
+        header { padding: 30px 20px; background: linear-gradient(var(--marrom-claro), var(--cacau)); }
+        .logo { width: 110px; border-radius: 50%; border: 3px solid var(--dourado); }
+
+        /* CARROSSEL DE FOTOS */
+        .carrossel { display: flex; gap: 15px; overflow-x: auto; padding: 20px; scrollbar-width: none; }
+        .carrossel::-webkit-scrollbar { display: none; }
+        .foto-card { flex: 0 0 160px; cursor: pointer; border-radius: 15px; border: 2px solid var(--dourado); position: relative; overflow: hidden; }
+        .foto-card img { width: 100%; height: 220px; object-fit: cover; }
+
+        /* MODAL ZOOM PROFISSIONAL */
+        #modalZoom { 
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0; 
+            width: 100%; height: 100%; background: rgba(0,0,0,0.98); 
+            flex-direction: column; align-items: center; justify-content: center;
         }
-        #textoZoom { color: white; margin-top: 15px; font-weight: bold; font-size: 1.2rem; }
-        .fechar-zoom {
-            position: absolute;
-            top: 20px; right: 20px;
-            color: white; font-size: 40px; font-weight: bold;
-            cursor: pointer; padding: 10px;
-        }
+        #imgExpandida { max-width: 85%; max-height: 65%; border: 2px solid var(--dourado); border-radius: 10px; }
+        .btn-fechar { position: absolute; top: 20px; right: 25px; color: white; font-size: 45px; cursor: pointer; }
+        .zoom-info { color: white; margin-top: 15px; text-align: center; width: 90%; }
 
         /* CARDÁPIO */
-        .card { background: #1a0d06; border: 1px solid var(--dourado); border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: left; }
-        .btn-finalizar { background: #25d366; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+        .container { padding: 15px; max-width: 550px; margin: auto; }
+        .card-produto { 
+            background: rgba(255,255,255,0.05); border-radius: 15px; padding: 18px; 
+            margin-bottom: 20px; text-align: left; border-left: 5px solid var(--dourado);
+        }
+        h2 { color: var(--dourado); text-transform: uppercase; font-size: 1rem; border-bottom: 1px solid var(--dourado); padding-bottom: 5px; margin-top: 30px; }
+        select, input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; background: #2b160a; border: 1px solid #555; color: white; }
+
+        /* RODAPÉ FIXO */
+        .footer-fixo { position: fixed; bottom: 0; width: 100%; background: var(--creme); color: var(--cacau); padding: 15px; box-sizing: border-box; border-radius: 20px 20px 0 0; box-shadow: 0 -5px 15px rgba(0,0,0,0.5); }
+        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
     </style>
 </head>
 <body>
 
+    <div id="aviso-loja">⚠️ Não abrimos na segunda e nem na terça. Responderemos seu pedido na quarta-feira!</div>
+
+    <div id="modalZoom">
+        <span class="btn-fechar" onclick="fecharZoom()">&times;</span>
+        <img id="imgExpandida" src="">
+        <div class="zoom-info">
+            <h3 id="zoomTitulo" style="color: var(--dourado); margin: 5px 0;"></h3>
+            <p id="zoomDesc" style="font-size: 0.9rem;"></p>
+        </div>
+    </div>
+
     <header>
-        <img src="logomarca_chocomelk.png" class="logo-img">
-        <h1>Chocomelk</h1>
+        <img src="logomarca_chocomelk.png" class="logo">
+        <h1>Ovos de Páscoa Chocomelk</h1>
     </header>
 
-    <div class="carrossel">
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/XfjgqgyV/1.jpg', 'Ovo 1')"><img src="https://i.ibb.co/XfjgqgyV/1.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/RTZqtmrB/2.jpg', 'Ovo 2')"><img src="https://i.ibb.co/RTZqtmrB/2.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/fG9qKD1F/3.jpg', 'Ovo 3')"><img src="https://i.ibb.co/fG9qKD1F/3.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/7N8bkw5r/4.jpg', 'Ovo 4')"><img src="https://i.ibb.co/7N8bkw5r/4.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/K8j6Fw1/5.jpg', 'Ovo 5')"><img src="https://i.ibb.co/K8j6Fw1/5.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/vxKTSbsS/6.jpg', 'Ovo 6')"><img src="https://i.ibb.co/vxKTSbsS/6.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/jYKg1bb/7.jpg', 'Ovo 7')"><img src="https://i.ibb.co/jYKg1bb/7.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/99pgmZHk/8.jpg', 'Ovo 8')"><img src="https://i.ibb.co/99pgmZHk/8.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/4ZppJ7D1/9.jpg', 'Ovo 9')"><img src="https://i.ibb.co/4ZppJ7D1/9.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/N2T30BMB/10.jpg', 'Ovo 10')"><img src="https://i.ibb.co/N2T30BMB/10.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/PZnXXchM/11.jpg', 'Ovo 11')"><img src="https://i.ibb.co/PZnXXchM/11.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/9HS8LZs3/12.jpg', 'Ovo 12')"><img src="https://i.ibb.co/9HS8LZs3/12.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/1Y4gyXRf/13.jpg', 'Ovo 13')"><img src="https://i.ibb.co/1Y4gyXRf/13.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/TxQQbfdt/14.jpg', 'Ovo 14')"><img src="https://i.ibb.co/TxQQbfdt/14.jpg"></div>
-        <div class="item-foto" onclick="verFoto('https://i.ibb.co/9mbQkL1b/15.jpg', 'Ovo 15')"><img src="https://i.ibb.co/9mbQkL1b/15.jpg"></div>
-    </div>
+    <div class="carrossel" id="carrossel"></div>
 
-    <div id="camadaZoom">
-        <span class="fechar-zoom" onclick="fechar()">&times;</span>
-        <img id="fotoGrande" src="">
-        <div id="textoZoom"></div>
-    </div>
+    <div class="container">
+        <h2>🍫 Ovos de Colher</h2>
+        <div id="lista-colher"></div>
 
-    <h2>Cardápio</h2>
-    <div id="lista"></div>
+        <h2>✨ Ovos Trufados</h2>
+        <div id="lista-trufado"></div>
 
-    <div style="background: var(--creme); color: black; padding: 20px; border-radius: 10px; margin-top: 30px;">
-        <h3>Total: R$ <span id="valTotal">0.00</span></h3>
-        <button class="btn-finalizar" onclick="pedir()">Enviar Pedido</button>
+        <h2>🐣 Ovos Tradicionais</h2>
+        <div id="lista-tradicional"></div>
+        
+        <div style="height: 180px;"></div> </div>
+
+    <div class="footer-fixo">
+        <input type="text" id="nomeCliente" placeholder="Seu Nome">
+        <div style="font-size: 1.2rem; font-weight: bold; margin-bottom: 8px;">Total: R$ <span id="totalTxt">0.00</span></div>
+        <button class="btn-finalizar" onclick="enviarPedido()">Finalizar Pedido via WhatsApp</button>
     </div>
 
     <script>
-        // FUNÇÕES DO ZOOM
-        function verFoto(url, nome) {
-            document.getElementById('fotoGrande').src = url;
-            document.getElementById('textoZoom').innerText = nome;
-            document.getElementById('camadaZoom').style.display = 'flex';
-        }
+        // LISTA DOS 15 LINKS COM DESCRIÇÕES
+        const galeria = [
+            {url: "https://i.ibb.co/XfjgqgyV/1.jpg", nome: "Ovo de Colher Brigadeiro"},
+            {url: "https://i.ibb.co/RTZqtmrB/2.jpg", nome: "Ovo Gourmet Cereja"},
+            {url: "https://i.ibb.co/fG9qKD1F/3.jpg", nome: "Ovo de Colher Morango"},
+            {url: "https://i.ibb.co/7N8bkw5r/4.jpg", nome: "Ovo KitKat"},
+            {url: "https://i.ibb.co/K8j6Fw1/5.jpg", nome: "Ovo Kids M&Ms"},
+            {url: "https://i.ibb.co/vxKTSbsS/6.jpg", nome: "Ovo Trufado Branco"},
+            {url: "https://i.ibb.co/jYKg1bb/7.jpg", nome: "Cesta de Páscoa Especial"},
+            {url: "https://i.ibb.co/99pgmZHk/8.jpg", nome: "Ovo Sensação"},
+            {url: "https://i.ibb.co/4ZppJ7D1/9.jpg", nome: "Ovo Tradicional Crocante"},
+            {url: "https://i.ibb.co/N2T30BMB/10.jpg", nome: "Ovo Gourmet Ninho"},
+            {url: "https://i.ibb.co/PZnXXchM/11.jpg", nome: "Ovo Trufado Meio Amargo"},
+            {url: "https://i.ibb.co/9HS8LZs3/12.jpg", nome: "Caixa de Trufas"},
+            {url: "https://i.ibb.co/1Y4gyXRf/13.jpg", nome: "Ovo de Colher Paçoca"},
+            {url: "https://i.ibb.co/TxQQbfdt/14.jpg", nome: "Ovo Especial Chocomelk"},
+            {url: "https://i.ibb.co/9mbQkL1b/15.jpg", nome: "Cesta de Presente"}
+        ];
 
-        function fechar() {
-            document.getElementById('camadaZoom').style.display = 'none';
-        }
-
-        // FECHAR AO CLICAR NO FUNDO PRETO TAMBÉM
-        document.getElementById('camadaZoom').addEventListener('click', function(e) {
-            if (e.target.id === 'camadaZoom') fechar();
-        });
-
-        // LISTA DE PRODUTOS SIMPLIFICADA PARA TESTE
-        const itens = ["Ovo de Colher", "Ovo Trufado", "Ovo Tradicional"];
-        let html = "";
-        itens.forEach((it, i) => {
-            html += `<div class="card">
-                <h3>${it}</h3>
-                <p>A partir de R$ 35,00</p>
-                <button onclick="alert('Item adicionado!')">Selecionar</button>
+        // RENDERIZAR FOTOS
+        let carrosselHtml = "";
+        galeria.forEach(f => {
+            carrosselHtml += `<div class="foto-card" onclick="abrirZoom('${f.url}', '${f.nome}')">
+                <img src="${f.url}">
             </div>`;
         });
-        document.getElementById('lista').innerHTML = html;
+        document.getElementById('carrossel').innerHTML = carrosselHtml;
 
-        // REGRA DE FECHAMENTO (SEGUNDA E TERÇA)
-        const hoje = new Date().getDay();
-        if (hoje === 1 || hoje === 2) {
-            alert("Atenção: Estamos fechados hoje (Segunda/Terça).");
+        // CARDÁPIO DATA
+        const categorias = {
+            colher: ["Ovo com Cerejas", "Ovo com M&Ms", "Ovo com Morangos", "Ovo Brigadeiro"],
+            trufado: ["Ao Leite", "Meio Amargo", "Branco"],
+            tradicional: ["Ao Leite", "Meio Amargo", "Crocante"]
+        };
+
+        function initMenu() {
+            // Render Colher
+            let html = "";
+            categorias.colher.forEach((o, i) => {
+                html += criarCard(o, i, 'colher', { "500g": 80, "350g": 65, "250g": 50 });
+            });
+            document.getElementById('lista-colher').innerHTML = html;
+
+            // Render Trufado
+            html = "";
+            categorias.trufado.forEach((o, i) => {
+                html += criarCard(o, i, 'trufado', { "500g": 75, "350g": 55, "250g": 40 });
+            });
+            document.getElementById('lista-trufado').innerHTML = html;
+
+            // Render Tradicional
+            html = "";
+            categorias.tradicional.forEach((o, i) => {
+                html += criarCard(o, i, 'tradicional', { "500g": 48.50, "250g": 27.00 });
+            });
+            document.getElementById('lista-tradicional').innerHTML = html;
         }
+
+        function criarCard(nome, id, tipo, precos) {
+            return `<div class="card-produto">
+                <h3>${nome}</h3>
+                <label>Tamanho:</label>
+                <select id="p_${tipo}_${id}" onchange="calc()">
+                    ${Object.keys(precos).map(t => `<option value="${precos[t]}">${t} - R$ ${precos[t].toFixed(2)}</option>`).join('')}
+                </select>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Qtd: <b id="q_${tipo}_${id}">0</b></span>
+                    <div>
+                        <button onclick="add('${tipo}_${id}', -1)" style="padding:5px 15px;">-</button>
+                        <button onclick="add('${tipo}_${id}', 1)" style="padding:5px 15px; background:var(--dourado);">+</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function add(id, v) {
+            let el = document.getElementById('q_'+id);
+            let n = parseInt(el.innerText) + v;
+            if(n >= 0) { el.innerText = n; calc(); }
+        }
+
+        function calc() {
+            let total = 0;
+            document.querySelectorAll('[id^="q_"]').forEach(el => {
+                let idParts = el.id.split('_');
+                let price = parseFloat(document.getElementById(`p_${idParts[1]}_${idParts[2]}`).value);
+                total += parseInt(el.innerText) * price;
+            });
+            document.getElementById('totalTxt').innerText = total.toFixed(2);
+        }
+
+        function abrirZoom(url, nome) {
+            document.getElementById('imgExpandida').src = url;
+            document.getElementById('zoomTitulo').innerText = nome;
+            document.getElementById('modalZoom').style.display = 'flex';
+        }
+
+        function fecharZoom() {
+            document.getElementById('modalZoom').style.display = 'none';
+        }
+
+        function enviarPedido() {
+            let nome = document.getElementById('nomeCliente').value;
+            let total = document.getElementById('totalTxt').innerText;
+            if(!nome || total == "0.00") return alert("Preencha seu nome e escolha os ovos!");
+
+            let texto = `🍫 *PEDIDO CHOCOMELK*\n👤 Cliente: ${nome}\n------------------\n`;
+            document.querySelectorAll('[id^="q_"]').forEach(el => {
+                let qtd = parseInt(el.innerText);
+                if(qtd > 0) {
+                    let idParts = el.id.split('_');
+                    let titulo = el.closest('.card-produto').querySelector('h3').innerText;
+                    let select = document.getElementById(`p_${idParts[1]}_${idParts[2]}`);
+                    let tam = select.options[select.selectedIndex].text;
+                    texto += `✅ ${qtd}x ${titulo} (${tam})\n`;
+                }
+            });
+            texto += `------------------\n💰 *Total: R$ ${total}*`;
+            window.open(`https://wa.me/5581989873733?text=${encodeURIComponent(texto)}`);
+        }
+
+        // Regra de Fechamento (Segunda e Terça)
+        const dia = new Date().getDay();
+        if(dia === 1 || dia === 2) document.getElementById('aviso-loja').style.display = 'block';
+
+        initMenu();
     </script>
 </body>
 </html>

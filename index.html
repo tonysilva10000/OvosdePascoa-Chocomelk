@@ -20,55 +20,71 @@
             font-family: 'Segoe UI', Roboto, sans-serif; 
             margin: 0; padding: 15px; text-align: center;
         }
+
+        /* AVISO DE FECHADO */
         #aviso-fechado { 
             background: #d9534f; color: white; padding: 15px; display: none; 
-            position: sticky; top: 0; z-index: 5000; font-weight: bold; border-radius: 0 0 10px 10px;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; font-weight: bold; box-sizing: border-box;
         }
-        header { padding: 20px 0; }
+
+        header { padding: 40px 0 20px; }
         .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--dourado); margin-bottom: 10px; }
         h1 { color: var(--branco); font-size: 1.8rem; margin: 10px 0; }
 
-        /* GALERIA */
+        /* GALERIA DE FOTOS */
         .vitrine-fotos { margin: 20px auto; max-width: 600px; }
         .carrossel-fotos { display: flex; gap: 15px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
         .carrossel-fotos::-webkit-scrollbar { display: none; }
-        .foto-item { flex: 0 0 160px; position: relative; cursor: pointer; transition: 0.3s; }
+        .foto-item { flex: 0 0 160px; position: relative; cursor: pointer; }
         .foto-item img { width: 160px; height: 220px; object-fit: cover; border: 2px solid var(--dourado); border-radius: 15px; }
         .foto-item .selo { position: absolute; bottom: 10px; left: 0; right: 0; background: rgba(0,0,0,0.7); color: var(--dourado); font-size: 0.7rem; font-weight: bold; padding: 5px; border-bottom-left-radius: 13px; border-bottom-right-radius: 13px; text-transform: uppercase; }
 
-        /* MODAL ZOOM */
+        /* MODAL DE ZOOM CORRIGIDO */
         #modalZoom { 
-            display: none; position: fixed; z-index: 9999; 
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); align-items: center; 
-            justify-content: center; flex-direction: column; 
+            display: none; 
+            position: fixed; 
+            z-index: 9999; 
+            left: 0; top: 0; 
+            width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.95); 
+            align-items: center; 
+            justify-content: center; 
+            flex-direction: column;
         }
-        #imgZoom { max-width: 90%; max-height: 80%; border: 3px solid var(--dourado); border-radius: 10px; }
-        #legendaZoom { color: var(--branco); margin-top: 15px; font-size: 1.2rem; font-weight: bold; }
-        .btn-fechar { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 50px; cursor: pointer; }
+        #imgZoom { 
+            width: auto;
+            max-width: 90%; 
+            max-height: 80%; 
+            border: 3px solid var(--dourado); 
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        #legendaZoom { color: white; margin-top: 20px; font-size: 1.3rem; font-weight: bold; text-shadow: 2px 2px 4px #000; }
+        .btn-fechar { position: absolute; top: 20px; right: 25px; color: white; font-size: 45px; font-weight: bold; cursor: pointer; z-index: 10000; }
 
+        /* ITENS DO CARDÁPIO */
         h2 { color: var(--dourado); border-bottom: 2px solid var(--dourado); display: inline-block; padding: 0 20px 5px 20px; margin: 40px 0 20px; text-transform: uppercase; font-size: 1.1rem; }
         .vitrine { display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .card-item { background: var(--marrom-profundo); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; width: 95%; max-width: 500px; text-align: left; box-sizing: border-box; }
         .card-item h3 { margin: 0 0 15px 0; color: var(--branco); font-size: 1.2rem; }
         label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--dourado); text-transform: uppercase; margin-top: 10px; }
-        select, input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #555; background: var(--cacau); color: #fff; font-size: 1rem; box-sizing: border-box; }
+        select, input { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #555; background: var(--cacau); color: #fff; font-size: 1rem; box-sizing: border-box; }
         .controles { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 50px; margin-top: 15px; }
         .btn-qtd { background: var(--dourado); border: none; color: var(--cacau); font-size: 22px; font-weight: bold; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
         .qtd-num { color: white; font-weight: bold; font-size: 1.3rem; }
 
         .checkout-area { background: var(--creme); color: var(--cacau); max-width: 500px; margin: 50px auto; padding: 25px; border-radius: 15px; text-align: left; }
         .resumo-total { background: var(--marrom-profundo); color: var(--dourado); padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 1.8rem; text-align: center; font-weight: bold; border: 2px solid var(--dourado); }
-        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 20px; font-size: 1.3rem; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; }
+        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 20px; font-size: 1.3rem; font-weight: bold; border-radius: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div id="aviso-fechado">⚠️ Hoje estamos fechados. Responderemos seu pedido na Quarta-feira!</div>
 
-    <div id="modalZoom" onclick="fecharZoom()">
-        <span class="btn-fechar">&times;</span>
-        <img id="imgZoom" src="">
+    <div id="modalZoom">
+        <span class="btn-fechar" onclick="fecharZoom()">&times;</span>
+        <img id="imgZoom" src="" alt="Zoom">
         <div id="legendaZoom"></div>
     </div>
 
@@ -79,21 +95,21 @@
     
     <div class="vitrine-fotos">
         <div class="carrossel-fotos">
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/1.jpg', 'Delícia Chocomelk 1')"><img src="https://i.ibb.co/XfjgqgyV/1.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/2.jpg', 'Delícia Chocomelk 2')"><img src="https://i.ibb.co/RTZqtmrB/2.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/3.jpg', 'Delícia Chocomelk 3')"><img src="https://i.ibb.co/fG9qKD1F/3.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/4.jpg', 'Delícia Chocomelk 4')"><img src="https://i.ibb.co/7N8bkw5r/4.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/5.jpg', 'Delícia Chocomelk 5')"><img src="https://i.ibb.co/K8j6Fw1/5.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/6.jpg', 'Delícia Chocomelk 6')"><img src="https://i.ibb.co/vxKTSbsS/6.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/7.jpg', 'Delícia Chocomelk 7')"><img src="https://i.ibb.co/jYKg1bb/7.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/99pgmZHk/8.jpg', 'Delícia Chocomelk 8')"><img src="https://i.ibb.co/99pgmZHk/8.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/4ZppJ7D1/9.jpg', 'Delícia Chocomelk 9')"><img src="https://i.ibb.co/4ZppJ7D1/9.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/N2T30BMB/10.jpg', 'Delícia Chocomelk 10')"><img src="https://i.ibb.co/N2T30BMB/10.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/PZnXXchM/11.jpg', 'Delícia Chocomelk 11')"><img src="https://i.ibb.co/PZnXXchM/11.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9HS8LZs3/12.jpg', 'Delícia Chocomelk 12')"><img src="https://i.ibb.co/9HS8LZs3/12.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/1Y4gyXRf/13.jpg', 'Delícia Chocomelk 13')"><img src="https://i.ibb.co/1Y4gyXRf/13.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/TxQQbfdt/14.jpg', 'Delícia Chocomelk 14')"><img src="https://i.ibb.co/TxQQbfdt/14.jpg"><div class="selo">Zoom</div></div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9mbQkL1b/15.jpg', 'Delícia Chocomelk 15')"><img src="https://i.ibb.co/9mbQkL1b/15.jpg"><div class="selo">Zoom</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/1.jpg', 'Ovo Chocomelk 1')"><img src="https://i.ibb.co/XfjgqgyV/1.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/2.jpg', 'Ovo Chocomelk 2')"><img src="https://i.ibb.co/RTZqtmrB/2.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/3.jpg', 'Ovo Chocomelk 3')"><img src="https://i.ibb.co/fG9qKD1F/3.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/4.jpg', 'Ovo Chocomelk 4')"><img src="https://i.ibb.co/7N8bkw5r/4.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/5.jpg', 'Ovo Chocomelk 5')"><img src="https://i.ibb.co/K8j6Fw1/5.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/6.jpg', 'Ovo Chocomelk 6')"><img src="https://i.ibb.co/vxKTSbsS/6.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/7.jpg', 'Ovo Chocomelk 7')"><img src="https://i.ibb.co/jYKg1bb/7.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/99pgmZHk/8.jpg', 'Ovo Chocomelk 8')"><img src="https://i.ibb.co/99pgmZHk/8.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/4ZppJ7D1/9.jpg', 'Ovo Chocomelk 9')"><img src="https://i.ibb.co/4ZppJ7D1/9.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/N2T30BMB/10.jpg', 'Ovo Chocomelk 10')"><img src="https://i.ibb.co/N2T30BMB/10.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/PZnXXchM/11.jpg', 'Ovo Chocomelk 11')"><img src="https://i.ibb.co/PZnXXchM/11.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9HS8LZs3/12.jpg', 'Ovo Chocomelk 12')"><img src="https://i.ibb.co/9HS8LZs3/12.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/1Y4gyXRf/13.jpg', 'Ovo Chocomelk 13')"><img src="https://i.ibb.co/1Y4gyXRf/13.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/TxQQbfdt/14.jpg', 'Ovo Chocomelk 14')"><img src="https://i.ibb.co/TxQQbfdt/14.jpg"><div class="selo">Ver Foto</div></div>
+            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9mbQkL1b/15.jpg', 'Ovo Chocomelk 15')"><img src="https://i.ibb.co/9mbQkL1b/15.jpg"><div class="selo">Ver Foto</div></div>
         </div>
     </div>
 
@@ -115,14 +131,22 @@
 
     <script>
         function abrirZoom(src, leg) {
-            document.getElementById('imgZoom').src = src;
-            document.getElementById('legendaZoom').innerText = leg;
-            document.getElementById('modalZoom').style.display = 'flex';
-        }
-        function fecharZoom() {
-            document.getElementById('modalZoom').style.display = 'none';
+            const modal = document.getElementById('modalZoom');
+            const img = document.getElementById('imgZoom');
+            const legenda = document.getElementById('legendaZoom');
+            
+            img.src = src;
+            legenda.innerText = leg;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Trava a tela atrás
         }
 
+        function fecharZoom() {
+            document.getElementById('modalZoom').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Destrava a tela
+        }
+
+        // Dados do Cardápio
         const precosColher = { "500g": 80, "350g": 65, "250g": 50, "150g": 35 };
         const ovosColher = [{nome:"Ovo com Cerejas"},{nome:"Ovo com M&Ms"},{nome:"Ovo com Marshmallow"},{nome:"Ovo com Morangos"},{nome:"Ovo Beijinho/Brigadeiro"}];
 
@@ -144,7 +168,7 @@
             document.getElementById('listaTrufado').innerHTML = hTruf;
 
             let hTrad = "";
-            ["Ao Leite", "Meio Amargo", "Tradicional"].forEach((o, i) => {
+            ["Ao Leite", "Meio Amargo", "Crocante"].forEach((o, i) => {
                 hTrad += `<div class="card-item"><h3>Ovo Tradicional ${o}</h3>
                 <label>Tamanho:</label><select id="p_trad_${i}" onchange="calc()"><option value="500g">500g - R$48.50</option><option value="250g">250g - R$27.00</option></select>
                 <div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div>`;
@@ -160,7 +184,6 @@
 
         function calc() {
             let total = 0;
-            // Cálculo simplificado para demonstração
             ovosColher.forEach((o, i) => {
                 let q = parseInt(document.getElementById('q_colher_'+i).innerText);
                 if (q > 0) total += q * precosColher[document.getElementById('p_colher_'+i).value];

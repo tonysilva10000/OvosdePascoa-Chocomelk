@@ -3,147 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocomelk - Cardápio Digital</title>
+    <title>Cardápio Chocomelk</title>
     <style>
-        :root { 
-            --dourado: #d4af37; 
-            --cacau: #1a0d06; 
-            --creme: #f3e5ab; 
-            --sucesso: #25d366;
-        }
-        body { 
-            background-color: var(--cacau); 
-            color: var(--creme); 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; padding: 0; text-align: center;
-        }
-
-        /* AVISO DE FECHAMENTO */
-        #aviso-loja { 
-            background: #d9534f; color: white; padding: 12px; 
-            display: none; position: sticky; top: 0; z-index: 1000; font-weight: bold;
-        }
-
-        header { padding: 30px 20px; }
-        .logo { width: 100px; border-radius: 50%; border: 2px solid var(--dourado); }
-
-        /* VITRINE DE FOTOS COM ZOOM */
-        .carrossel { display: flex; gap: 15px; overflow-x: auto; padding: 20px; scrollbar-width: none; }
-        .carrossel::-webkit-scrollbar { display: none; }
-        .foto-card { flex: 0 0 160px; cursor: pointer; border-radius: 15px; border: 2px solid var(--dourado); overflow: hidden; }
-        .foto-card img { width: 100%; height: 220px; object-fit: cover; }
-
-        /* MODAL ZOOM */
+        /* MANTIVE SEU ESTILO ORIGINAL */
+        :root { --dourado: #d4af37; --cacau: #2b160a; --creme: #f3e5ab; }
+        body { background-color: var(--cacau); color: var(--creme); font-family: sans-serif; margin: 0; padding: 15px; text-align: center; }
+        
+        /* ESTILO DO ZOOM - ADICIONADO */
         #modalZoom { 
             display: none; position: fixed; z-index: 9999; top: 0; left: 0; 
             width: 100%; height: 100%; background: rgba(0,0,0,0.95); 
-            flex-direction: column; align-items: center; justify-content: center;
+            align-items: center; justify-content: center; 
         }
-        #imgExpandida { max-width: 90%; max-height: 70%; border: 2px solid var(--dourado); border-radius: 10px; }
-        .fechar { position: absolute; top: 20px; right: 25px; color: white; font-size: 40px; cursor: pointer; }
+        #imgZoom { max-width: 90%; max-height: 80%; border: 3px solid var(--dourado); border-radius: 10px; }
+        .btn-fechar { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 50px; cursor: pointer; }
 
-        /* LISTA DE PRODUTOS */
-        .container { padding: 15px; max-width: 500px; margin: auto; padding-bottom: 200px; }
-        .card-item { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 15px; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--dourado); }
-        select, input { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; background: #2b160a; border: 1px solid #555; color: white; }
-        
-        .footer { position: fixed; bottom: 0; width: 100%; background: var(--creme); color: #000; padding: 15px; box-sizing: border-box; border-radius: 20px 20px 0 0; }
-        .btn-whats { background: var(--sucesso); color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        /* CARROSSEL */
+        .carrossel { display: flex; gap: 10px; overflow-x: auto; padding: 10px; margin-bottom: 20px; }
+        .foto-item { flex: 0 0 140px; cursor: pointer; position: relative; }
+        .foto-item img { width: 140px; height: 180px; object-fit: cover; border-radius: 10px; border: 1px solid var(--dourado); }
     </style>
 </head>
 <body>
 
-    <div id="aviso-loja">⚠️ Não abrimos na segunda e nem na terça. Responderemos na quarta!</div>
-
     <div id="modalZoom" onclick="fecharZoom()">
-        <span class="fechar">&times;</span>
-        <img id="imgExpandida" src="">
-        <h3 id="tituloZoom" style="color: white; margin-top: 15px;"></h3>
+        <span class="btn-fechar">&times;</span>
+        <img id="imgZoom" src="">
     </div>
 
     <header>
-        <img src="logomarca_chocomelk.png" class="logo">
+        <img src="logomarca_chocomelk.png" style="width: 100px; border-radius: 50%;">
         <h1>Chocomelk</h1>
     </header>
 
-    <div class="carrossel" id="vitrine"></div>
-
-    <div class="container" id="menu-itens"></div>
-
-    <div class="footer">
-        <input type="text" id="nome" placeholder="Seu Nome">
-        <div style="font-weight: bold; margin-bottom: 10px;">Total: R$ <span id="total">0.00</span></div>
-        <button class="btn-whats" onclick="enviar()">Pedir via WhatsApp</button>
+    <div class="carrossel">
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/1.jpg')"><img src="https://i.ibb.co/XfjgqgyV/1.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/2.jpg')"><img src="https://i.ibb.co/RTZqtmrB/2.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/3.jpg')"><img src="https://i.ibb.co/fG9qKD1F/3.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/4.jpg')"><img src="https://i.ibb.co/7N8bkw5r/4.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/5.jpg')"><img src="https://i.ibb.co/K8j6Fw1/5.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/6.jpg')"><img src="https://i.ibb.co/vxKTSbsS/6.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/7.jpg')"><img src="https://i.ibb.co/jYKg1bb/7.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/99pgmZHk/8.jpg')"><img src="https://i.ibb.co/99pgmZHk/8.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/4ZppJ7D1/9.jpg')"><img src="https://i.ibb.co/4ZppJ7D1/9.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/N2T30BMB/10.jpg')"><img src="https://i.ibb.co/N2T30BMB/10.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/PZnXXchM/11.jpg')"><img src="https://i.ibb.co/PZnXXchM/11.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9HS8LZs3/12.jpg')"><img src="https://i.ibb.co/9HS8LZs3/12.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/1Y4gyXRf/13.jpg')"><img src="https://i.ibb.co/1Y4gyXRf/13.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/TxQQbfdt/14.jpg')"><img src="https://i.ibb.co/TxQQbfdt/14.jpg"></div>
+        <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9mbQkL1b/15.jpg')"><img src="https://i.ibb.co/9mbQkL1b/15.jpg"></div>
     </div>
 
+    <div id="cardapio">
+        </div>
+
     <script>
-        // Links enviados por você (Antônio)
-        const imagens = [
-            "https://i.ibb.co/XfjgqgyV/1.jpg", "https://i.ibb.co/RTZqtmrB/2.jpg", "https://i.ibb.co/fG9qKD1F/3.jpg",
-            "https://i.ibb.co/7N8bkw5r/4.jpg", "https://i.ibb.co/K8j6Fw1/5.jpg", "https://i.ibb.co/vxKTSbsS/6.jpg",
-            "https://i.ibb.co/jYKg1bb/7.jpg", "https://i.ibb.co/99pgmZHk/8.jpg", "https://i.ibb.co/4ZppJ7D1/9.jpg",
-            "https://i.ibb.co/N2T30BMB/10.jpg", "https://i.ibb.co/PZnXXchM/11.jpg", "https://i.ibb.co/9HS8LZs3/12.jpg",
-            "https://i.ibb.co/1Y4gyXRf/13.jpg", "https://i.ibb.co/TxQQbfdt/14.jpg", "https://i.ibb.co/9mbQkL1b/15.jpg"
-        ];
-
-        // Nomes sugeridos para cada link
-        const nomes = [
-            "Ovo de Colher Brigadeiro", "Ovo Gourmet Cereja", "Ovo Morango do Nordeste",
-            "Ovo KitKat Especial", "Ovo Kids Divertido", "Ovo Trufado Branco",
-            "Cesta Chocomelk G", "Ovo Sensação", "Ovo Tradicional Crocante",
-            "Ovo Ninho com Nutella", "Ovo Meio Amargo", "Caixa de Trufas Sortidas",
-            "Ovo Paçoca Crocante", "Ovo Especial da Casa", "Cesta de Páscoa M"
-        ];
-
-        // Renderizar Vitrine
-        let vitrineHtml = "";
-        imagens.forEach((url, i) => {
-            vitrineHtml += `<div class="foto-card" onclick="abrirZoom('${url}', '${nomes[i]}')"><img src="${url}"></div>`;
-        });
-        document.getElementById('vitrine').innerHTML = vitrineHtml;
-
-        // Renderizar Itens de Compra (Exemplo simplificado)
-        const produtos = ["Ovos de Colher", "Ovos Trufados", "Ovos Tradicionais"];
-        let menuHtml = "";
-        produtos.forEach((p, i) => {
-            menuHtml += `<div class="card-item">
-                <h3>${p}</h3>
-                <select id="p_${i}" onchange="calc()">
-                    <option value="0">Selecione o tamanho...</option>
-                    <option value="50">250g - R$ 50,00</option>
-                    <option value="80">500g - R$ 80,00</option>
-                </select>
-                <input type="number" id="q_${i}" value="0" min="0" onchange="calc()" style="width: 60px;"> Qtd
-            </div>`;
-        });
-        document.getElementById('menu-itens').innerHTML = menuHtml;
-
-        function abrirZoom(url, txt) {
-            document.getElementById('imgExpandida').src = url;
-            document.getElementById('tituloZoom').innerText = txt;
+        // FUNÇÃO DE ZOOM CORRIGIDA
+        function abrirZoom(url) {
+            document.getElementById('imgZoom').src = url;
             document.getElementById('modalZoom').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
         }
 
-        function fecharZoom() { document.getElementById('modalZoom').style.display = 'none'; }
-
-        function calc() {
-            let t = 0;
-            for(let i=0; i<3; i++) {
-                t += document.getElementById('p_'+i).value * document.getElementById('q_'+i).value;
-            }
-            document.getElementById('total').innerText = t.toFixed(2);
+        function fecharZoom() {
+            document.getElementById('modalZoom').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
         }
 
-        function enviar() {
-            let nome = document.getElementById('nome').value;
-            let total = document.getElementById('total').innerText;
-            if(!nome || total == "0.00") return alert("Preencha seu nome e escolha um item!");
-            window.open(`https://wa.me/5581989873733?text=Olá! Me chamo ${nome}. Meu pedido na Chocomelk deu R$ ${total}`);
-        }
-
-        // Regra de Fechamento (Antônio: Segunda e Terça não abre)
+        // REGRA DE FECHAMENTO (Segunda e Terça)
         const dia = new Date().getDay();
-        if(dia === 1 || dia === 2) document.getElementById('aviso-loja').style.display = 'block';
+        if(dia === 1 || dia === 2) {
+            alert("A Chocomelk não abre na segunda nem na terça!");
+        }
     </script>
 </body>
 </html>

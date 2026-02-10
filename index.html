@@ -12,121 +12,61 @@
             --creme: #f3e5ab; 
             --branco: #ffffff;
             --sucesso: #25d366;
-            --brilho: rgba(212, 175, 55, 0.5);
         }
 
-        html { scroll-behavior: smooth; }
-
         body { 
-            background-color: var(--cacau); 
+            /* Mantendo o fundo profissional que configuramos antes */
+            background-image: linear-gradient(rgba(43, 22, 10, 0.85), rgba(43, 22, 10, 0.85)), url('https://i.ibb.co/XdpMMbM/1770682525216.png');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
             color: var(--creme); 
             font-family: 'Segoe UI', Roboto, sans-serif; 
             margin: 0; padding: 15px; text-align: center;
         }
 
-        #aviso-fechado { 
-            background: #d9534f; color: white; padding: 15px; display: none; 
-            position: sticky; top: 0; z-index: 100; font-weight: bold; border-radius: 0 0 10px 10px;
-        }
-
         header { padding: 20px 0; }
-        .logo-img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--dourado); margin-bottom: 10px; }
+        /* Ajuste da logo para a nova imagem circular */
+        .logo-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--dourado); margin-bottom: 10px; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
         h1 { color: var(--branco); font-size: 1.8rem; margin: 10px 0; }
 
-        /* GALERIA DE FOTOS */
-        .vitrine-fotos { margin: 20px auto; max-width: 600px; }
-        .carrossel-fotos { display: flex; gap: 15px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
-        .carrossel-fotos::-webkit-scrollbar { display: none; }
-        .foto-item { flex: 0 0 160px; position: relative; cursor: pointer; transition: 0.3s; }
-        .foto-item img { width: 160px; height: 220px; object-fit: cover; border: 2px solid var(--dourado); border-radius: 15px; }
-        .foto-item .selo { position: absolute; bottom: 10px; left: 0; right: 0; background: rgba(0,0,0,0.7); color: var(--dourado); font-size: 0.7rem; font-weight: bold; padding: 5px; border-bottom-left-radius: 13px; border-bottom-right-radius: 13px; text-transform: uppercase; }
-
-        /* ZOOM */
-        #modalZoom { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; flex-direction: column; }
-        #imgZoom { max-width: 85%; max-height: 70%; border: 4px solid var(--dourado); border-radius: 15px; }
-        #legendaZoom { color: var(--branco); margin-top: 20px; font-size: 1.4rem; font-weight: bold; }
-        .btn-fechar { position: absolute; top: 30px; right: 30px; color: var(--branco); font-size: 40px; cursor: pointer; }
-
         h2 { color: var(--dourado); border-bottom: 2px solid var(--dourado); display: inline-block; padding: 0 20px 5px 20px; margin: 40px 0 20px; text-transform: uppercase; font-size: 1.1rem; }
-        .vitrine { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .card-item { background: var(--marrom-profundo); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; width: 95%; max-width: 500px; text-align: left; box-sizing: border-box; }
-        .card-item h3 { margin: 0 0 15px 0; color: var(--branco); font-size: 1.2rem; }
-        label { display: block; font-size: 0.75rem; font-weight: bold; color: var(--dourado); text-transform: uppercase; margin-top: 10px; }
-        select, input, textarea { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #555; background: var(--cacau); color: #fff; font-size: 1rem; box-sizing: border-box; }
-        
-        .controles { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 20px; border-radius: 50px; margin-top: 15px; }
-        .btn-qtd { background: var(--dourado); border: none; color: var(--cacau); font-size: 22px; font-weight: bold; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
-        .qtd-num { color: white; font-weight: bold; font-size: 1.3rem; }
 
-        .checkout-area { background: var(--creme); color: var(--cacau); max-width: 500px; margin: 50px auto; padding: 25px; border-radius: 15px; text-align: left; }
-        .resumo-total { background: var(--marrom-profundo); color: var(--dourado); padding: 15px; border-radius: 10px; margin: 20px 0; font-size: 1.8rem; text-align: center; font-weight: bold; border: 2px solid var(--dourado); }
-        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 20px; font-size: 1.3rem; font-weight: bold; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
-        .btn-voltar { background: #555; color: var(--creme); border: 1px solid var(--dourado); width: 100%; padding: 15px; font-size: 1rem; font-weight: bold; border-radius: 10px; cursor: pointer; text-transform: uppercase; }
+        .vitrine { display: flex; flex-direction: column; align-items: center; gap: 25px; }
+        
+        .card-item { background: var(--marrom-profundo); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 15px; padding: 0; width: 95%; max-width: 500px; text-align: left; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        .foto-produto { width: 100%; height: 280px; object-fit: cover; display: block; }
+        
+        .card-conteudo { padding: 20px; }
+        
+        .card-item h3 { margin: 0 0 15px 0; color: var(--branco); font-size: 1.3rem; border-left: 4px solid var(--dourado); padding-left: 10px; }
+        label { display: block; font-size: 0.8rem; font-weight: bold; color: var(--dourado); text-transform: uppercase; margin-top: 12px; }
+        select, input { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #444; background: var(--cacau); color: #fff; font-size: 1rem; box-sizing: border-box; }
+        
+        .controles { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 50px; margin-top: 20px; border: 1px solid var(--dourado); }
+        .btn-qtd { background: var(--dourado); border: none; color: var(--cacau); font-size: 24px; font-weight: bold; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; }
+        .qtd-num { color: white; font-weight: bold; font-size: 1.5rem; }
+
+        .checkout-area { background: var(--creme); color: var(--cacau); max-width: 500px; margin: 50px auto; padding: 30px; border-radius: 20px; text-align: left; }
+        .resumo-total { background: var(--marrom-profundo); color: var(--dourado); padding: 20px; border-radius: 12px; margin: 20px 0; font-size: 2rem; text-align: center; font-weight: bold; border: 3px solid var(--dourado); }
+        .btn-finalizar { background: var(--sucesso); color: white; border: none; width: 100%; padding: 22px; font-size: 1.4rem; font-weight: bold; border-radius: 12px; cursor: pointer; text-transform: uppercase; }
+        
+        #sacola { margin-top:15px; background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; border:1px dashed var(--dourado); color: #fff; }
     </style>
 </head>
 <body>
 
-    <div id="aviso-fechado">⚠️ Hoje estamos fechados. Responderemos seu pedido na Quarta-feira!</div>
-
-    <div id="modalZoom">
-        <span class="btn-fechar" onclick="fecharZoom()">&times;</span>
-        <img id="imgZoom" src="">
-        <div id="legendaZoom"></div>
-    </div>
-
     <header>
-        <img src="https://i.ibb.co/XfjgqgyV/foto1.jpg" alt="Chocomelk" class="logo-img">
-        <h1 id="topo">Ovos de Páscoa Chocomelk</h1>
+        <img src="https://i.ibb.co/NdftKBtq/1770683382920.png" alt="Chocomelk Logo" class="logo-img">
+        <h1>Ovos de Páscoa Chocomelk</h1>
     </header>
-    
-    <div class="vitrine-fotos">
-        <div class="carrossel-fotos">
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/XfjgqgyV/foto1.jpg', 'Delícia Chocomelk')">
-                <img src="https://i.ibb.co/XfjgqgyV/foto1.jpg"><div class="selo">Novidade</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/RTZqtmrB/foto2.jpg', 'Ovo Especial')">
-                <img src="https://i.ibb.co/RTZqtmrB/foto2.jpg"><div class="selo">Especial</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/fG9qKD1F/foto3.jpg', 'Ovo de Colher')">
-                <img src="https://i.ibb.co/fG9qKD1F/foto3.jpg"><div class="selo">Colher</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/7N8bkw5r/foto4.jpg', 'Chocolate Artesanal')">
-                <img src="https://i.ibb.co/7N8bkw5r/foto4.jpg"><div class="selo">Artesanal</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/K8j6Fw1/foto5.jpg', 'Mimo de Páscoa')">
-                <img src="https://i.ibb.co/K8j6Fw1/foto5.jpg"><div class="selo">Mimo</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/vxKTSbsS/foto6.jpg', 'Ovo Trufado')">
-                <img src="https://i.ibb.co/vxKTSbsS/foto6.jpg"><div class="selo">Trufado</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/jYKg1bb/foto7.jpg', 'Sabor Único')">
-                <img src="https://i.ibb.co/jYKg1bb/foto7.jpg"><div class="selo">Premium</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/99pgmZHk/foto8.jpg', 'Desejo de Chocolate')">
-                <img src="https://i.ibb.co/99pgmZHk/foto8.jpg"><div class="selo">Desejo</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/4ZppJ7D1/foto9.jpg', 'Páscoa Feliz')">
-                <img src="https://i.ibb.co/4ZppJ7D1/foto9.jpg"><div class="selo">Feliz</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/PZnXXchM/foto10.jpg', 'Super Recheio')">
-                <img src="https://i.ibb.co/PZnXXchM/foto10.jpg"><div class="selo">Recheado</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9HS8LZs3/foto11.jpg', 'Ovo Kids')">
-                <img src="https://i.ibb.co/9HS8LZs3/foto11.jpg"><div class="selo">Kids</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/TxQQbfdt/foto12.jpg', 'Presente Chocomelk')">
-                <img src="https://i.ibb.co/TxQQbfdt/foto12.jpg"><div class="selo">Presente</div>
-            </div>
-            <div class="foto-item" onclick="abrirZoom('https://i.ibb.co/9mbQkL1b/foto13.jpg', 'Edição Limitada')">
-                <img src="https://i.ibb.co/9mbQkL1b/foto13.jpg"><div class="selo">Limitado</div>
-            </div>
-        </div>
-    </div>
 
-    <h2>🍫 Ovos de Colher</h2>
+    <h2>🍫 Ovos de Colher (15 opções)</h2>
     <div class="vitrine" id="listaColher"></div>
 
-    <h2>✨ Ovos Trufados</h2>
+    <h2>✨ Ovos Trufados (Casca Recheada)</h2>
     <div class="vitrine" id="listaTrufado"></div>
 
     <h2>🐣 Ovos Tradicionais</h2>
@@ -135,70 +75,103 @@
     <h2>🍬 Trufas Artesanais</h2>
     <div class="vitrine">
         <div class="card-item">
-            <h3>Selecione os sabores</h3>
-            <div style="display: flex; gap: 10px;">
-                <select id="selectSabor">
-                    <optgroup label="Clássicas - R$ 4,00">
-                        <option value="Chocolate|4">Chocolate</option><option value="Beijinho|4">Beijinho</option><option value="Brigadeiro|4">Brigadeiro</option><option value="Amendoim|4">Amendoim</option><option value="Doce de leite|4">Doce de leite</option><option value="Bem casado|4">Bem casado</option><option value="Passas ao rum|4">Passas ao rum</option><option value="Café|4">Café</option>
-                    </optgroup>
-                    <optgroup label="Especiais - R$ 5,00">
-                        <option value="Castanha|5">Castanha</option><option value="Maracujá|5">Maracujá</option><option value="Limão|5">Limão</option><option value="Cereja|5">Cereja</option><option value="Morango|5">Morango</option><option value="Ameixa|5">Ameixa</option><option value="Ninho|5">Ninho</option><option value="Valsa|5">Valsa</option>
-                    </optgroup>
-                </select>
-                <button style="background:var(--sucesso); color:white; border:none; padding:0 15px; border-radius:8px;" onclick="addTrufa()">ADD</button>
-            </div>
-            <div id="sacola" style="margin-top:15px; display:none; background:rgba(0,0,0,0.5); padding:10px; border-radius:10px; border:1px dashed var(--dourado);">
-                <div id="itensSacola"></div>
+            <img src="https://i.ibb.co/RwP5nbM/Galleryit-20260209-1770680777.jpg" class="foto-produto">
+            <div class="card-conteudo">
+                <h3>Selecione os sabores</h3>
+                <div style="display: flex; gap: 10px;">
+                    <select id="selectSabor">
+                        <optgroup label="Clássicas - R$ 4,00">
+                            <option value="Chocolate|4">Chocolate</option><option value="Beijinho|4">Beijinho</option><option value="Brigadeiro|4">Brigadeiro</option><option value="Amendoim|4">Amendoim</option><option value="Doce de leite|4">Doce de leite</option><option value="Bem casado|4">Bem casado</option><option value="Passas ao rum|4">Passas ao rum</option><option value="Café|4">Café</option>
+                        </optgroup>
+                        <optgroup label="Especiais - R$ 5,00">
+                            <option value="Castanha|5">Castanha</option><option value="Maracujá|5">Maracujá</option><option value="Limão|5">Limão</option><option value="Cereja|5">Cereja</option><option value="Morango|5">Morango</option><option value="Ameixa|5">Ameixa</option><option value="Ninho|5">Ninho</option><option value="Valsa|5">Valsa</option>
+                        </optgroup>
+                    </select>
+                    <button style="background:var(--sucesso); color:white; border:none; padding:0 15px; border-radius:8px; cursor:pointer;" onclick="addTrufa()">ADD</button>
+                </div>
+                <div id="sacola" style="display:none;">
+                    <div id="itensSacola"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="checkout-area">
-        <h3>Finalizar Pedido</h3>
+        <h3>🛒 Finalizar Pedido</h3>
         <input type="text" id="nome" placeholder="Seu Nome">
-        <input type="text" id="endereco" placeholder="Endereço">
-        <select id="pagamento"><option>Pix</option><option>Cartão</option><option>Dinheiro</option></select>
-        <textarea id="obs" placeholder="Observações..." rows="2" style="margin-top:10px;"></textarea>
+        <input type="text" id="endereco" placeholder="Endereço de Entrega" style="margin-top:10px;">
+        <select id="pagamento" style="margin-top:10px;"><option>Pix</option><option>Cartão</option><option>Dinheiro</option></select>
         <div class="resumo-total">TOTAL: R$ <span id="totalExibido">0.00</span></div>
-        <button class="btn-finalizar" onclick="enviarPedido()">Enviar para WhatsApp</button>
-        <button class="btn-voltar" onclick="window.scrollTo(0,0)">⬅️ Voltar ao Início</button>
+        <button class="btn-finalizar" onclick="enviarPedido()">✅ Enviar para WhatsApp</button>
     </div>
 
     <script>
-        function abrirZoom(src, leg) { document.getElementById('imgZoom').src = src; document.getElementById('legendaZoom').innerText = leg; document.getElementById('modalZoom').style.display = 'flex'; }
-        function fecharZoom() { document.getElementById('modalZoom').style.display = 'none'; }
-
         let carrinhoTrufas = [];
         const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };
         const precosTrufado = { "250g": 40, "350g": 55, "500g": 75, "1kg": 140 };
         const precosTrad = { "100g": 13.5, "250g": 27, "350g": 37.5, "500g": 48.5, "1kg": 97 };
-        const ovosColher = [{nome:"Ovo com Cerejas"},{nome:"Ovo com M&Ms"},{nome:"Ovo com Marshmallow"},{nome:"Ovo com Morangos"},{nome:"Ovo Beijinho e Brigadeiro"}];
+
+        const fotos = [
+            "https://i.ibb.co/RTZqtmrB/foto2.jpg", "https://i.ibb.co/fG9qKD1F/foto3.jpg", 
+            "https://i.ibb.co/7N8bkw5r/foto4.jpg", "https://i.ibb.co/K8j6Fw1/foto5.jpg",
+            "https://i.ibb.co/vxKTSbsS/foto6.jpg", "https://i.ibb.co/jYKg1bb/foto7.jpg",
+            "https://i.ibb.co/99pgmZHk/foto8.jpg", "https://i.ibb.co/4ZppJ7D1/foto9.jpg",
+            "https://i.ibb.co/PZnXXchM/foto10.jpg", "https://i.ibb.co/9HS8LZs3/foto11.jpg",
+            "https://i.ibb.co/TxQQbfdt/foto12.jpg", "https://i.ibb.co/9mbQkL1b/foto13.jpg"
+        ];
+
+        const fotosTrufados = [
+            "https://i.ibb.co/N6GfdJmH/images-6.jpg", "https://i.ibb.co/m5ncmcN7/images-5.jpg", 
+            "https://i.ibb.co/C3K1HL9M/images-4.jpg", "https://i.ibb.co/N6d6csYj/images-3.jpg", 
+            "https://i.ibb.co/QFF0zv7m/images-2.jpg", "https://i.ibb.co/HT29z25w/images-1.jpg", 
+            "https://i.ibb.co/wNXCNJSK/images.jpg"
+        ];
+
+        const fotosTradicionais = [
+            "https://i.ibb.co/1f2W9Pyx/IMG-20250418-WA0003.jpg",
+            "https://i.ibb.co/Dg8VTV3d/IMG-20250418-WA0005.jpg",
+            "https://i.ibb.co/20N23G6p/IMG-20250418-WA0007.jpg",
+            "https://i.ibb.co/7xp0phNf/IMG-20250418-WA0009.jpg",
+            "https://i.ibb.co/1f2W9Pyx/IMG-20250418-WA0003.jpg" 
+        ];
 
         function init() {
+            const nomesOvosColher = [
+                "Ovo de colher com Marshmallow", "Ovo de colher com cerejas brigadeiro e beijinho", "Ovo de colher com M&Ms",
+                "Ovo de colher com cerejas e raspas de chocolate", "Ovo de colher com Beijinho e Brigadeiro", "Ovo de colher com Morangos",
+                "Ovo de Morangos com Brigadeiro", "Ovo de colher Beijinho", "Ovo de colher de beijinhos e brigadeiros",
+                "Ovo de colher Morangos, marshmallow e jujubas", "Ovo de colher de Marshmallow, Finnis", "Ovo de colher de Finnis, morango e riscas de chocolates",
+                "Ovo de colher de Marshmallow, M&Ms e bombom Coração", "Ovo de colher de Especial Premium", "Ovo de colher Especial Crianças com M&Ms"
+            ];
+
             let hColher = "";
-            ovosColher.forEach((o, i) => {
-                hColher += `<div class="card-item"><h3>${o.nome}</h3>
+            for (let i = 0; i < 15; i++) {
+                hColher += `<div class="card-item"><img src="${fotos[i % fotos.length]}" class="foto-produto"><div class="card-conteudo"><h3>${nomesOvosColher[i]}</h3>
                 <label>Tamanho:</label><select id="p_colher_${i}" onchange="calc()"><option value="500g">500g - R$80</option><option value="350g">350g - R$65</option><option value="250g">250g - R$50</option><option value="150g">150g - R$35</option></select>
-                <label>Casca:</label><select id="c_colher_${i}"><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Crocante</option></select>
+                <label>Casca:</label><select><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Crocante</option></select>
                 <label>Recheio:</label><select id="r_colher_${i}" onchange="calc()"><option>Brigadeiro</option><option>Chocolate</option><option>Maracujá</option><option>Limão</option><option>Beijinho</option><option>Doce de Leite</option><option>Ninho (+R$5)</option><option>Pistache (+R$5)</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('colher_${i}',-1)">-</button><span class="qtd-num" id="q_colher_${i}">0</span><button class="btn-qtd" onclick="qtd('colher_${i}',1)">+</button></div></div>`;
-            });
+                <div class="controles"><button class="btn-qtd" onclick="qtd('colher_${i}',-1)">-</button><span class="qtd-num" id="q_colher_${i}">0</span><button class="btn-qtd" onclick="qtd('colher_${i}',1)">+</button></div></div></div>`;
+            }
             document.getElementById('listaColher').innerHTML = hColher;
 
             let hTruf = "";
-            ["Ao Leite", "Meio Amargo", "Mesclado", "Branco"].forEach((o, i) => {
-                hTruf += `<div class="card-item"><h3>Ovo Trufado ${o}</h3>
+            const saboresTrufados = ["Beijinho", "Doce de Leite", "Brigadeiro", "Chocolate", "Leite Ninho", "Limão", "Maracujá"];
+            saboresTrufados.forEach((sabor, i) => {
+                hTruf += `<div class="card-item"><img src="${fotosTrufados[i]}" class="foto-produto"><div class="card-conteudo"><h3>Ovo Trufado ${sabor}</h3>
                 <label>Tamanho:</label><select id="p_truf_${i}" onchange="calc()"><option value="500g">500g - R$75</option><option value="350g">350g - R$55</option><option value="250g">250g - R$40</option><option value="1kg">1kg - R$140</option></select>
-                <label>Recheio:</label><select><option>Chocolate</option><option>Beijinho</option><option>Maracujá</option><option>Limão</option><option>Brigadeiro</option><option>Doce de Leite</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div>`;
+                <label>Casca:</label><select><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Mesclado</option></select>
+                <label>Recheio:</label><select><option>${sabor}</option></select>
+                <div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div></div>`;
             });
             document.getElementById('listaTrufado').innerHTML = hTruf;
 
             let hTrad = "";
-            ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"].forEach((o, i) => {
-                hTrad += `<div class="card-item"><h3>Ovo Tradicional ${o}</h3>
+            const tiposTrad = ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"];
+            tiposTrad.forEach((tipo, i) => {
+                hTrad += `<div class="card-item"><img src="${fotosTradicionais[i]}" class="foto-produto"><div class="card-conteudo"><h3>Ovo Tradicional ${tipo}</h3>
                 <label>Tamanho:</label><select id="p_trad_${i}" onchange="calc()"><option value="500g">500g - R$48.50</option><option value="350g">350g - R$37.50</option><option value="250g">250g - R$27.00</option><option value="1kg">1kg - R$97.00</option><option value="100g">100g - R$13.50</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div>`;
+                <label>Casca:</label><select><option>${tipo}</option></select>
+                <div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div></div>`;
             });
             document.getElementById('listaTradicional').innerHTML = hTrad;
         }
@@ -211,17 +184,19 @@
         function calc() {
             let total = 0;
             carrinhoTrufas.forEach(t => total += t.preco);
-            ovosColher.forEach((o, i) => {
-                let q = parseInt(document.getElementById('q_colher_'+i).innerText);
-                if (q > 0) {
+            for(let i=0; i<15; i++){ 
+                let qColher = parseInt(document.getElementById('q_colher_'+i).innerText);
+                if(qColher > 0) {
                     let v = precosColher[document.getElementById('p_colher_'+i).value];
-                    let r = document.getElementById('r_colher_'+i).value;
-                    if (r.includes("Ninho") || r.includes("Pistache")) v += 5;
-                    total += q * v;
+                    if(document.getElementById('r_colher_'+i).value.includes("Ninho") || document.getElementById('r_colher_'+i).value.includes("Pistache")) v += 5;
+                    total += qColher * v;
                 }
-            });
-            for(let i=0; i<4; i++){ let q = parseInt(document.getElementById('q_truf_'+i).innerText); if(q>0) total += q * precosTrufado[document.getElementById('p_truf_'+i).value]; }
-            for(let i=0; i<5; i++){ let q = parseInt(document.getElementById('q_trad_'+i).innerText); if(q>0) total += q * precosTrad[document.getElementById('p_trad_'+i).value]; }
+            }
+            for(let i=0; i<7; i++){ 
+                let qTruf = parseInt(document.getElementById('q_truf_'+i).innerText); 
+                if(qTruf > 0) total += qTruf * precosTrufado[document.getElementById('p_truf_'+i).value]; 
+            }
+            for(let i=0; i<5; i++){ let qTrad = parseInt(document.getElementById('q_trad_'+i).innerText); if(qTrad > 0) total += qTrad * precosTrad[document.getElementById('p_trad_'+i).value]; }
             document.getElementById('totalExibido').innerText = total.toFixed(2);
         }
 
@@ -229,12 +204,10 @@
             let n = document.getElementById('nome').value;
             let t = document.getElementById('totalExibido').innerText;
             if(!n || t === "0.00") return alert("Preencha seu nome e escolha os produtos!");
-            window.open(`https://wa.me/5581989873733?text=${encodeURIComponent("Pedido de " + n + " - Total R$ " + t)}`);
+            window.open(`https://wa.me/5581989873733?text=${encodeURIComponent("Pedido de " + n + ". Total R$ " + t)}`);
         }
 
-        const dia = new Date().getDay();
-        if (dia === 1 || dia === 2) document.getElementById('aviso-fechado').style.display = 'block';
-        init();
+        window.onload = init;
     </script>
 </body>
 </html>

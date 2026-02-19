@@ -183,59 +183,89 @@
     }
 
     function enviarPedido() {
-        let n = document.getElementById('nome').value;
-        let end = document.getElementById('endereco').value;
-        let pag = document.getElementById('pagamento').value;
-        let total = document.getElementById('totalExibido').innerText;
+    let n = document.getElementById('nome').value;
+    let end = document.getElementById('endereco').value;
+    let pag = document.getElementById('pagamento').value;
+    let total = document.getElementById('totalExibido').innerText;
 
-        if(!n || total === "0.00") return alert("Preencha seu nome e escolha os produtos!");
+    if (!n || total === "0.00") return alert("Por favor, preencha seu nome e escolha pelo menos um produto!");
 
-        let texto = `*NOVO PEDIDO - CHOCOMELK*\n\n`;
-        texto += `*Cliente:* ${n}\n`;
-        texto += `*Endereço:* ${end}\n`;
-        texto += `*Pagamento:* ${pag}\n`;
-        texto += `--------------------------------\n`;
-        texto += `*ITENS:*\n`;
+    // Cabeçalho da Mensagem
+    let texto = `*🍫 NOVO PEDIDO - CHOCOMELK 🍫*\n`;
+    texto += `------------------------------------------\n`;
+    texto += `*👤 CLIENTE:* ${n}\n`;
+    texto += `*📍 ENDEREÇO:* ${end}\n`;
+    texto += `*💳 PAGAMENTO:* ${pag}\n`;
+    texto += `------------------------------------------\n\n`;
+    texto += `*📦 ITENS SOLICITADOS:*\n\n`;
 
-        // Ovos de Colher
-        for(let i=0; i<15; i++){
-            let q = parseInt(document.getElementById('q_colher_'+i).innerText);
-            if(q > 0){
-                let tam = document.getElementById('p_colher_'+i).value;
-                let recheio = document.getElementById('r_colher_'+i).value;
-                texto += `🍫 ${q}x ${nomesOvosColher[i]} (${tam}) - Recheio: ${recheio}\n`;
-            }
+    // 1. Ovos de Colher
+    const listaColher = document.getElementById('listaColher').children;
+    for (let i = 0; i < 15; i++) {
+        let q = parseInt(document.getElementById('q_colher_' + i).innerText);
+        if (q > 0) {
+            let nome = listaColher[i].querySelector('h3').innerText;
+            let tam = document.getElementById('p_colher_' + i).value;
+            let rech = document.getElementById('r_colher_' + i).value;
+            // Pega o segundo select (índice 1) que é a casca
+            let casca = listaColher[i].querySelectorAll('select')[1].value;
+            
+            texto += `✅ *${q}x ${nome}*\n`;
+            texto += `   • Tamanho: ${tam}\n`;
+            texto += `   • Casca: ${casca}\n`;
+            texto += `   • Recheio: ${rech}\n\n`;
         }
-
-        // Ovos Trufados
-        for(let i=0; i<7; i++){
-            let q = parseInt(document.getElementById('q_truf_'+i).innerText);
-            if(q > 0){
-                let tam = document.getElementById('p_truf_'+i).value;
-                texto += `✨ ${q}x Ovo Trufado ${saboresTrufados[i]} (${tam})\n`;
-            }
-        }
-
-        // Ovos Tradicionais
-        for(let i=0; i<5; i++){
-            let q = parseInt(document.getElementById('q_trad_'+i).innerText);
-            if(q > 0){
-                let tam = document.getElementById('p_trad_'+i).value;
-                texto += `🐣 ${q}x Ovo Tradicional ${tiposTrad[i]} (${tam})\n`;
-            }
-        }
-
-        // Trufas
-        if(carrinhoTrufas.length > 0){
-            texto += `🍬 *Trufas:* ${carrinhoTrufas.length} un. (${carrinhoTrufas.map(t => t.sabor).join(', ')})\n`;
-        }
-
-        texto += `--------------------------------\n`;
-        texto += `*TOTAL DO PEDIDO: R$ ${total}*`;
-
-        let url = `https://wa.me/5581989873733?text=${encodeURIComponent(texto)}`;
-        window.open(url);
     }
+
+    // 2. Ovos Trufados
+    const listaTrufado = document.getElementById('listaTrufado').children;
+    for (let i = 0; i < 7; i++) {
+        let q = parseInt(document.getElementById('q_truf_' + i).innerText);
+        if (q > 0) {
+            let nome = listaTrufado[i].querySelector('h3').innerText;
+            let tam = document.getElementById('p_truf_' + i).value;
+            let casca = listaTrufado[i].querySelectorAll('select')[1].value;
+            
+            texto += `✅ *${q}x ${nome}*\n`;
+            texto += `   • Tamanho: ${tam}\n`;
+            texto += `   • Casca: ${casca}\n\n`;
+        }
+    }
+
+    // 3. Ovos Tradicionais
+    const listaTrad = document.getElementById('listaTradicional').children;
+    for (let i = 0; i < 5; i++) {
+        let q = parseInt(document.getElementById('q_trad_' + i).innerText);
+        if (q > 0) {
+            let nome = listaTrad[i].querySelector('h3').innerText;
+            let tam = document.getElementById('p_trad_' + i).value;
+            let casca = listaTrad[i].querySelectorAll('select')[1].value;
+            
+            texto += `✅ *${q}x ${nome}*\n`;
+            texto += `   • Tamanho: ${tam}\n`;
+            texto += `   • Tipo: ${casca}\n\n`;
+        }
+    }
+
+    // 4. Trufas
+    if (carrinhoTrufas.length > 0) {
+        texto += `✅ *TRUFAS ARTESANAIS:*\n`;
+        let contagem = {};
+        carrinhoTrufas.forEach(t => contagem[t.sabor] = (contagem[t.sabor] || 0) + 1);
+        for (let s in contagem) {
+            texto += `   • ${contagem[s]}x sabor ${s}\n`;
+        }
+        texto += `\n`;
+    }
+
+    texto += `------------------------------------------\n`;
+    texto += `*💰 VALOR TOTAL: R$ ${total}*\n`;
+    texto += `------------------------------------------`;
+
+    let url = `https://wa.me/5581989873733?text=${encodeURIComponent(texto)}`;
+    window.open(url);
+}
+
 
     window.onload = init;
 </script>

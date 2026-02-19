@@ -104,8 +104,7 @@
     const precosTrufado = { "250g": 40, "350g": 55, "500g": 75, "1kg": 140 };
     const precosTrad = { "100g": 13.5, "250g": 27, "350g": 37.5, "500g": 48.5, "1kg": 97 };
 
-    // Recuperando sua lista de fotos original
-    const fotosOriginais = [
+    const fotosColher = [
         "https://i.ibb.co/RTZqtmrB/foto2.jpg", "https://i.ibb.co/fG9qKD1F/foto3.jpg", 
         "https://i.ibb.co/7N8bkw5r/foto4.jpg", "https://i.ibb.co/K8j6Fw1/foto5.jpg",
         "https://i.ibb.co/vxKTSbsS/foto6.jpg", "https://i.ibb.co/jYKg1bb/foto7.jpg",
@@ -128,7 +127,7 @@
     function init() {
         let hColher = "";
         for (let i = 0; i < 15; i++) {
-            hColher += `<div class="card-item"><img src="${fotosOriginais[i % fotosOriginais.length]}" class="foto-produto"><div class="card-conteudo"><h3>${nomesOvosColher[i]}</h3>
+            hColher += `<div class="card-item"><img src="${fotosColher[i % fotosColher.length]}" class="foto-produto"><div class="card-conteudo"><h3>${nomesOvosColher[i]}</h3>
             <label>Tamanho:</label><select id="p_colher_${i}" onchange="calc()"><option value="500g">500g - R$80</option><option value="350g">350g - R$65</option><option value="250g">250g - R$50</option><option value="150g">150g - R$35</option></select>
             <label>Tipo de Casca:</label><select id="c_colher_${i}"><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Crocante</option></select>
             <label>Recheio:</label><select id="r_colher_${i}" onchange="calc()"><option>Brigadeiro</option><option>Chocolate</option><option>Maracujá</option><option>Limão</option><option>Beijinho</option><option>Doce de Leite</option><option>Ninho (+R$5)</option><option>Pistache (+R$5)</option></select>

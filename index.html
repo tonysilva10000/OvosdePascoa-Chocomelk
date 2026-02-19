@@ -56,7 +56,7 @@
         <h1>Ovos de Páscoa Chocomelk</h1>
     </header>
 
-    <h2>🍫 Ovos de Colher (15 opções)</h2>
+    <h2>🍫 Ovos de Colher</h2>
     <div class="vitrine" id="listaColher"></div>
 
     <h2>✨ Ovos Trufados (Casca Recheada)</h2>
@@ -121,7 +121,17 @@
         "Ovo de colher de Marshmallow, M&Ms e bombom Coração", "Ovo de colher de Especial Premium", "Ovo de colher Especial Crianças com M&Ms"
     ];
 
-    const saboresTrufados = ["Beijinho", "Doce de Leite", "Brigadeiro", "Chocolate", "Leite Ninho", "Limão", "Maracujá"];
+    // Sabores dos Ovos Trufados incluindo Maracujá
+    const infoTrufados = [
+        { nome: "Doce de Leite", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" },
+        { nome: "Beijinho", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" },
+        { nome: "Chocolate", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" },
+        { nome: "Brigadeiro", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" },
+        { nome: "Maracujá", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" },
+        { nome: "Limão", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" },
+        { nome: "Leite Ninho", foto: "https://i.ibb.co/N6GfdJmH/images-6.jpg" }
+    ];
+
     const tiposTrad = ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"];
 
     function init() {
@@ -136,8 +146,8 @@
         document.getElementById('listaColher').innerHTML = hColher;
 
         let hTruf = "";
-        saboresTrufados.forEach((sabor, i) => {
-            hTruf += `<div class="card-item"><img src="https://i.ibb.co/N6GfdJmH/images-6.jpg" class="foto-produto"><div class="card-conteudo"><h3>Ovo Trufado ${sabor}</h3>
+        infoTrufados.forEach((item, i) => {
+            hTruf += `<div class="card-item"><img src="${item.foto}" class="foto-produto"><div class="card-conteudo"><h3>Ovo Trufado ${item.nome}</h3>
             <label>Tamanho:</label><select id="p_truf_${i}" onchange="calc()"><option value="500g">500g - R$75</option><option value="350g">350g - R$55</option><option value="250g">250g - R$40</option><option value="1kg">1kg - R$140</option></select>
             <label>Tipo de Casca:</label><select id="c_truf_${i}"><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option></select>
             <div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div></div>`;
@@ -170,11 +180,11 @@
                 total += qColher * v;
             }
         }
-        for(let i=0; i<7; i++){ 
+        for(let i=0; i<infoTrufados.length; i++){ 
             let qTruf = parseInt(document.getElementById('q_truf_'+i).innerText); 
             if(qTruf > 0) total += qTruf * precosTrufado[document.getElementById('p_truf_'+i).value]; 
         }
-        for(let i=0; i<5; i++){ let qTrad = parseInt(document.getElementById('q_trad_'+i).innerText); if(qTrad > 0) total += qTrad * precosTrad[document.getElementById('p_trad_'+i).value]; }
+        for(let i=0; i<tiposTrad.length; i++){ let qTrad = parseInt(document.getElementById('q_trad_'+i).innerText); if(qTrad > 0) total += qTrad * precosTrad[document.getElementById('p_trad_'+i).value]; }
         document.getElementById('totalExibido').innerText = total.toFixed(2);
     }
 
@@ -184,7 +194,7 @@
         let pag = document.getElementById('pagamento').value;
         let total = document.getElementById('totalExibido').innerText;
 
-        if (!n || total === "0.00") return alert("Por favor, preencha seu nome e selecione os itens!");
+        if (!n || total === "0.00") return alert("Preencha seu nome e escolha os itens!");
 
         let texto = `*🍫 NOVO PEDIDO - CHOCOMELK 🍫*\n`;
         texto += `------------------------------------------\n`;
@@ -204,16 +214,16 @@
             }
         }
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < infoTrufados.length; i++) {
             let q = parseInt(document.getElementById('q_truf_' + i).innerText);
             if (q > 0) {
                 let tam = document.getElementById('p_truf_' + i).value;
                 let casca = document.getElementById('c_truf_' + i).value;
-                texto += `✅ *${q}x Ovo Trufado ${saboresTrufados[i]}*\n   • Tam: ${tam} | Casca: ${casca}\n\n`;
+                texto += `✅ *${q}x Ovo Trufado ${infoTrufados[i].nome}*\n   • Tam: ${tam} | Casca: ${casca}\n\n`;
             }
         }
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < tiposTrad.length; i++) {
             let q = parseInt(document.getElementById('q_trad_' + i).innerText);
             if (q > 0) {
                 let tam = document.getElementById('p_trad_' + i).value;
@@ -226,14 +236,12 @@
             texto += `✅ *TRUFAS ARTESANAIS:*\n`;
             let contagem = {};
             carrinhoTrufas.forEach(t => contagem[t.sabor] = (contagem[t.sabor] || 0) + 1);
-            for (let s in contagem) {
-                texto += `   • ${contagem[s]}x sabor ${s}\n`;
-            }
+            for (let s in contagem) texto += `   • ${contagem[s]}x sabor ${s}\n`;
             texto += `\n`;
         }
 
         texto += `------------------------------------------\n`;
-        texto += `*💰 TOTAL DO PEDIDO: R$ ${total}*`;
+        texto += `*💰 TOTAL: R$ ${total}*`;
 
         window.open(`https://wa.me/5581989873733?text=${encodeURIComponent(texto)}`);
     }

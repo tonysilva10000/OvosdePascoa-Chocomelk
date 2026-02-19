@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+tô<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -201,11 +201,72 @@
         }
 
         function enviarPedido() {
-            let n = document.getElementById('nome').value;
-            let t = document.getElementById('totalExibido').innerText;
-            if(!n || t === "0.00") return alert("Preencha seu nome e escolha os produtos!");
-            window.open(`https://wa.me/5581989873733?text=${encodeURIComponent("Pedido de " + n + ". Total R$ " + t)}`);
+    let n = document.getElementById('nome').value;
+    let end = document.getElementById('endereco').value;
+    let pag = document.getElementById('pagamento').value;
+    let t = document.getElementById('totalExibido').innerText;
+
+    if (!n || t === "0.00") return alert("Preencha seu nome e escolha os produtos!");
+
+    let msg = `*NOVO PEDIDO (Chocomelk)*\n\n`;
+    msg += `*Cliente:* ${n}\n`;
+    msg += `*Endereço:* ${end}\n`;
+    msg += `*Pagamento:* ${pag}\n`;
+    msg += `----------------------------\n`;
+    msg += `*ITENS DO PEDIDO:*\n\n`;
+
+    // 1. Coletar Ovos de Colher
+    const nomesOvosColher = [
+        "Ovo de colher com Marshmallow", "Ovo de colher com cerejas brigadeiro e beijinho", "Ovo de colher com M&Ms",
+        "Ovo de colher com cerejas e raspas de chocolate", "Ovo de colher com Beijinho e Brigadeiro", "Ovo de colher com Morangos",
+        "Ovo de Morangos com Brigadeiro", "Ovo de colher Beijinho", "Ovo de colher de beijinhos e brigadeiros",
+        "Ovo de colher Morangos, marshmallow e jujubas", "Ovo de colher de Marshmallow, Finnis", "Ovo de colher de Finnis, morango e riscas de chocolates",
+        "Ovo de colher de Marshmallow, M&Ms e bombom Coração", "Ovo de colher de Especial Premium", "Ovo de colher Especial Crianças com M&Ms"
+    ];
+
+    for (let i = 0; i < 15; i++) {
+        let q = parseInt(document.getElementById('q_colher_' + i).innerText);
+        if (q > 0) {
+            let tam = document.getElementById('p_colher_' + i).value;
+            let rech = document.getElementById('r_colher_' + i).value;
+            msg += `✅ ${q}x ${nomesOvosColher[i]}\n   Tamanho: ${tam} | Recheio: ${rech}\n\n`;
         }
+    }
+
+    // 2. Coletar Ovos Trufados
+    const saboresTrufados = ["Beijinho", "Doce de Leite", "Brigadeiro", "Chocolate", "Leite Ninho", "Limão", "Maracujá"];
+    for (let i = 0; i < 7; i++) {
+        let q = parseInt(document.getElementById('q_truf_' + i).innerText);
+        if (q > 0) {
+            let tam = document.getElementById('p_truf_' + i).value;
+            msg += `✅ ${q}x Ovo Trufado ${saboresTrufados[i]}\n   Tamanho: ${tam}\n\n`;
+        }
+    }
+
+    // 3. Coletar Ovos Tradicionais
+    const tiposTrad = ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"];
+    for (let i = 0; i < 5; i++) {
+        let q = parseInt(document.getElementById('q_trad_' + i).innerText);
+        if (q > 0) {
+            let tam = document.getElementById('p_trad_' + i).value;
+            msg += `✅ ${q}x Ovo Tradicional ${tiposTrad[i]}\n   Tamanho: ${tam}\n\n`;
+        }
+    }
+
+    // 4. Coletar Trufas
+    if (carrinhoTrufas.length > 0) {
+        msg += `✅ *Trufas Artesanais:* \n`;
+        carrinhoTrufas.forEach(trufa => {
+            msg += ` - ${trufa.sabor}\n`;
+        });
+        msg += `\n`;
+    }
+
+    msg += `----------------------------\n`;
+    msg += `*TOTAL: R$ ${t}*`;
+
+    window.open(`https://wa.me/5581989873733?text=${encodeURIComponent(msg)}`);
+}
 
         window.onload = init;
     </script>

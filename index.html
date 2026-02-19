@@ -1,4 +1,4 @@
-tô<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -106,116 +106,20 @@ tô<!DOCTYPE html>
     </div>
 
     <script>
-        let carrinhoTrufas = [];
-        const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };
-        const precosTrufado = { "250g": 40, "350g": 55, "500g": 75, "1kg": 140 };
-        const precosTrad = { "100g": 13.5, "250g": 27, "350g": 37.5, "500g": 48.5, "1kg": 97 };
+    let carrinhoTrufas = [];
+    const precosColher = { "150g": 35, "250g": 50, "350g": 65, "500g": 80 };
+    const precosTrufado = { "250g": 40, "350g": 55, "500g": 75, "1kg": 140 };
+    const precosTrad = { "100g": 13.5, "250g": 27, "350g": 37.5, "500g": 48.5, "1kg": 97 };
 
-        const fotos = [
-            "https://i.ibb.co/RTZqtmrB/foto2.jpg", "https://i.ibb.co/fG9qKD1F/foto3.jpg", 
-            "https://i.ibb.co/7N8bkw5r/foto4.jpg", "https://i.ibb.co/K8j6Fw1/foto5.jpg",
-            "https://i.ibb.co/vxKTSbsS/foto6.jpg", "https://i.ibb.co/jYKg1bb/foto7.jpg",
-            "https://i.ibb.co/99pgmZHk/foto8.jpg", "https://i.ibb.co/4ZppJ7D1/foto9.jpg",
-            "https://i.ibb.co/PZnXXchM/foto10.jpg", "https://i.ibb.co/9HS8LZs3/foto11.jpg",
-            "https://i.ibb.co/TxQQbfdt/foto12.jpg", "https://i.ibb.co/9mbQkL1b/foto13.jpg"
-        ];
+    const fotos = [
+        "https://i.ibb.co/RTZqtmrB/foto2.jpg", "https://i.ibb.co/fG9qKD1F/foto3.jpg", 
+        "https://i.ibb.co/7N8bkw5r/foto4.jpg", "https://i.ibb.co/K8j6Fw1/foto5.jpg",
+        "https://i.ibb.co/vxKTSbsS/foto6.jpg", "https://i.ibb.co/jYKg1bb/foto7.jpg",
+        "https://i.ibb.co/99pgmZHk/foto8.jpg", "https://i.ibb.co/4ZppJ7D1/foto9.jpg",
+        "https://i.ibb.co/PZnXXchM/foto10.jpg", "https://i.ibb.co/9HS8LZs3/foto11.jpg",
+        "https://i.ibb.co/TxQQbfdt/foto12.jpg", "https://i.ibb.co/9mbQkL1b/foto13.jpg"
+    ];
 
-        const fotosTrufados = [
-            "https://i.ibb.co/N6GfdJmH/images-6.jpg", "https://i.ibb.co/m5ncmcN7/images-5.jpg", 
-            "https://i.ibb.co/C3K1HL9M/images-4.jpg", "https://i.ibb.co/N6d6csYj/images-3.jpg", 
-            "https://i.ibb.co/QFF0zv7m/images-2.jpg", "https://i.ibb.co/HT29z25w/images-1.jpg", 
-            "https://i.ibb.co/wNXCNJSK/images.jpg"
-        ];
-
-        const fotosTradicionais = [
-            "https://i.ibb.co/1f2W9Pyx/IMG-20250418-WA0003.jpg",
-            "https://i.ibb.co/Dg8VTV3d/IMG-20250418-WA0005.jpg",
-            "https://i.ibb.co/20N23G6p/IMG-20250418-WA0007.jpg",
-            "https://i.ibb.co/7xp0phNf/IMG-20250418-WA0009.jpg",
-            "https://i.ibb.co/1f2W9Pyx/IMG-20250418-WA0003.jpg" 
-        ];
-
-        function init() {
-            const nomesOvosColher = [
-                "Ovo de colher com Marshmallow", "Ovo de colher com cerejas brigadeiro e beijinho", "Ovo de colher com M&Ms",
-                "Ovo de colher com cerejas e raspas de chocolate", "Ovo de colher com Beijinho e Brigadeiro", "Ovo de colher com Morangos",
-                "Ovo de Morangos com Brigadeiro", "Ovo de colher Beijinho", "Ovo de colher de beijinhos e brigadeiros",
-                "Ovo de colher Morangos, marshmallow e jujubas", "Ovo de colher de Marshmallow, Finnis", "Ovo de colher de Finnis, morango e riscas de chocolates",
-                "Ovo de colher de Marshmallow, M&Ms e bombom Coração", "Ovo de colher de Especial Premium", "Ovo de colher Especial Crianças com M&Ms"
-            ];
-
-            let hColher = "";
-            for (let i = 0; i < 15; i++) {
-                hColher += `<div class="card-item"><img src="${fotos[i % fotos.length]}" class="foto-produto"><div class="card-conteudo"><h3>${nomesOvosColher[i]}</h3>
-                <label>Tamanho:</label><select id="p_colher_${i}" onchange="calc()"><option value="500g">500g - R$80</option><option value="350g">350g - R$65</option><option value="250g">250g - R$50</option><option value="150g">150g - R$35</option></select>
-                <label>Casca:</label><select><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Crocante</option></select>
-                <label>Recheio:</label><select id="r_colher_${i}" onchange="calc()"><option>Brigadeiro</option><option>Chocolate</option><option>Maracujá</option><option>Limão</option><option>Beijinho</option><option>Doce de Leite</option><option>Ninho (+R$5)</option><option>Pistache (+R$5)</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('colher_${i}',-1)">-</button><span class="qtd-num" id="q_colher_${i}">0</span><button class="btn-qtd" onclick="qtd('colher_${i}',1)">+</button></div></div></div>`;
-            }
-            document.getElementById('listaColher').innerHTML = hColher;
-
-            let hTruf = "";
-            const saboresTrufados = ["Beijinho", "Doce de Leite", "Brigadeiro", "Chocolate", "Leite Ninho", "Limão", "Maracujá"];
-            saboresTrufados.forEach((sabor, i) => {
-                hTruf += `<div class="card-item"><img src="${fotosTrufados[i]}" class="foto-produto"><div class="card-conteudo"><h3>Ovo Trufado ${sabor}</h3>
-                <label>Tamanho:</label><select id="p_truf_${i}" onchange="calc()"><option value="500g">500g - R$75</option><option value="350g">350g - R$55</option><option value="250g">250g - R$40</option><option value="1kg">1kg - R$140</option></select>
-                <label>Casca:</label><select><option>Ao Leite</option><option>Meio Amargo</option><option>Branco</option><option>Mesclado</option></select>
-                <label>Recheio:</label><select><option>${sabor}</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div></div>`;
-            });
-            document.getElementById('listaTrufado').innerHTML = hTruf;
-
-            let hTrad = "";
-            const tiposTrad = ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"];
-            tiposTrad.forEach((tipo, i) => {
-                hTrad += `<div class="card-item"><img src="${fotosTradicionais[i]}" class="foto-produto"><div class="card-conteudo"><h3>Ovo Tradicional ${tipo}</h3>
-                <label>Tamanho:</label><select id="p_trad_${i}" onchange="calc()"><option value="500g">500g - R$48.50</option><option value="350g">350g - R$37.50</option><option value="250g">250g - R$27.00</option><option value="1kg">1kg - R$97.00</option><option value="100g">100g - R$13.50</option></select>
-                <label>Casca:</label><select><option>${tipo}</option></select>
-                <div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div></div>`;
-            });
-            document.getElementById('listaTradicional').innerHTML = hTrad;
-        }
-
-        function addTrufa() { let s = document.getElementById('selectSabor').value.split('|'); carrinhoTrufas.push({sabor: s[0], preco: parseFloat(s[1])}); renderSacola(); }
-        function renderSacola() { document.getElementById('sacola').style.display = carrinhoTrufas.length ? 'block' : 'none'; document.getElementById('itensSacola').innerHTML = carrinhoTrufas.map((t, i) => `<div style="display:flex; justify-content:space-between; margin:5px 0;">${t.sabor} <button onclick="removerTrufa(${i})" style="color:red; background:none; border:none; font-weight:bold;">X</button></div>`).join(''); calc(); }
-        function removerTrufa(i) { carrinhoTrufas.splice(i, 1); renderSacola(); }
-        function qtd(id, m) { let el = document.getElementById('q_'+id); let v = parseInt(el.innerText)+m; if(v>=0){ el.innerText=v; calc(); } }
-
-        function calc() {
-            let total = 0;
-            carrinhoTrufas.forEach(t => total += t.preco);
-            for(let i=0; i<15; i++){ 
-                let qColher = parseInt(document.getElementById('q_colher_'+i).innerText);
-                if(qColher > 0) {
-                    let v = precosColher[document.getElementById('p_colher_'+i).value];
-                    if(document.getElementById('r_colher_'+i).value.includes("Ninho") || document.getElementById('r_colher_'+i).value.includes("Pistache")) v += 5;
-                    total += qColher * v;
-                }
-            }
-            for(let i=0; i<7; i++){ 
-                let qTruf = parseInt(document.getElementById('q_truf_'+i).innerText); 
-                if(qTruf > 0) total += qTruf * precosTrufado[document.getElementById('p_truf_'+i).value]; 
-            }
-            for(let i=0; i<5; i++){ let qTrad = parseInt(document.getElementById('q_trad_'+i).innerText); if(qTrad > 0) total += qTrad * precosTrad[document.getElementById('p_trad_'+i).value]; }
-            document.getElementById('totalExibido').innerText = total.toFixed(2);
-        }
-
-        function enviarPedido() {
-    let n = document.getElementById('nome').value;
-    let end = document.getElementById('endereco').value;
-    let pag = document.getElementById('pagamento').value;
-    let t = document.getElementById('totalExibido').innerText;
-
-    if (!n || t === "0.00") return alert("Preencha seu nome e escolha os produtos!");
-
-    let msg = `*NOVO PEDIDO (Chocomelk)*\n\n`;
-    msg += `*Cliente:* ${n}\n`;
-    msg += `*Endereço:* ${end}\n`;
-    msg += `*Pagamento:* ${pag}\n`;
-    msg += `----------------------------\n`;
-    msg += `*ITENS DO PEDIDO:*\n\n`;
-
-    // 1. Coletar Ovos de Colher
     const nomesOvosColher = [
         "Ovo de colher com Marshmallow", "Ovo de colher com cerejas brigadeiro e beijinho", "Ovo de colher com M&Ms",
         "Ovo de colher com cerejas e raspas de chocolate", "Ovo de colher com Beijinho e Brigadeiro", "Ovo de colher com Morangos",
@@ -224,51 +128,118 @@ tô<!DOCTYPE html>
         "Ovo de colher de Marshmallow, M&Ms e bombom Coração", "Ovo de colher de Especial Premium", "Ovo de colher Especial Crianças com M&Ms"
     ];
 
-    for (let i = 0; i < 15; i++) {
-        let q = parseInt(document.getElementById('q_colher_' + i).innerText);
-        if (q > 0) {
-            let tam = document.getElementById('p_colher_' + i).value;
-            let rech = document.getElementById('r_colher_' + i).value;
-            msg += `✅ ${q}x ${nomesOvosColher[i]}\n   Tamanho: ${tam} | Recheio: ${rech}\n\n`;
-        }
-    }
-
-    // 2. Coletar Ovos Trufados
     const saboresTrufados = ["Beijinho", "Doce de Leite", "Brigadeiro", "Chocolate", "Leite Ninho", "Limão", "Maracujá"];
-    for (let i = 0; i < 7; i++) {
-        let q = parseInt(document.getElementById('q_truf_' + i).innerText);
-        if (q > 0) {
-            let tam = document.getElementById('p_truf_' + i).value;
-            msg += `✅ ${q}x Ovo Trufado ${saboresTrufados[i]}\n   Tamanho: ${tam}\n\n`;
-        }
-    }
-
-    // 3. Coletar Ovos Tradicionais
     const tiposTrad = ["Ao Leite", "Meio Amargo", "Mesclado", "Crocante", "Branco"];
-    for (let i = 0; i < 5; i++) {
-        let q = parseInt(document.getElementById('q_trad_' + i).innerText);
-        if (q > 0) {
-            let tam = document.getElementById('p_trad_' + i).value;
-            msg += `✅ ${q}x Ovo Tradicional ${tiposTrad[i]}\n   Tamanho: ${tam}\n\n`;
+
+    function init() {
+        let hColher = "";
+        for (let i = 0; i < 15; i++) {
+            hColher += `<div class="card-item"><img src="${fotos[i % fotos.length]}" class="foto-produto"><div class="card-conteudo"><h3>${nomesOvosColher[i]}</h3>
+            <label>Tamanho:</label><select id="p_colher_${i}" onchange="calc()"><option value="500g">500g - R$80</option><option value="350g">350g - R$65</option><option value="250g">250g - R$50</option><option value="150g">150g - R$35</option></select>
+            <label>Recheio:</label><select id="r_colher_${i}" onchange="calc()"><option>Brigadeiro</option><option>Chocolate</option><option>Maracujá</option><option>Limão</option><option>Beijinho</option><option>Doce de Leite</option><option>Ninho (+R$5)</option><option>Pistache (+R$5)</option></select>
+            <div class="controles"><button class="btn-qtd" onclick="qtd('colher_${i}',-1)">-</button><span class="qtd-num" id="q_colher_${i}">0</span><button class="btn-qtd" onclick="qtd('colher_${i}',1)">+</button></div></div></div>`;
         }
-    }
+        document.getElementById('listaColher').innerHTML = hColher;
 
-    // 4. Coletar Trufas
-    if (carrinhoTrufas.length > 0) {
-        msg += `✅ *Trufas Artesanais:* \n`;
-        carrinhoTrufas.forEach(trufa => {
-            msg += ` - ${trufa.sabor}\n`;
+        let hTruf = "";
+        saboresTrufados.forEach((sabor, i) => {
+            hTruf += `<div class="card-item"><img src="https://i.ibb.co/N6GfdJmH/images-6.jpg" class="foto-produto"><div class="card-conteudo"><h3>Ovo Trufado ${sabor}</h3>
+            <label>Tamanho:</label><select id="p_truf_${i}" onchange="calc()"><option value="500g">500g - R$75</option><option value="350g">350g - R$55</option><option value="250g">250g - R$40</option><option value="1kg">1kg - R$140</option></select>
+            <div class="controles"><button class="btn-qtd" onclick="qtd('truf_${i}',-1)">-</button><span class="qtd-num" id="q_truf_${i}">0</span><button class="btn-qtd" onclick="qtd('truf_${i}',1)">+</button></div></div></div>`;
         });
-        msg += `\n`;
+        document.getElementById('listaTrufado').innerHTML = hTruf;
+
+        let hTrad = "";
+        tiposTrad.forEach((tipo, i) => {
+            hTrad += `<div class="card-item"><img src="https://i.ibb.co/1f2W9Pyx/IMG-20250418-WA0003.jpg" class="foto-produto"><div class="card-conteudo"><h3>Ovo Tradicional ${tipo}</h3>
+            <label>Tamanho:</label><select id="p_trad_${i}" onchange="calc()"><option value="500g">500g - R$48.50</option><option value="350g">350g - R$37.50</option><option value="250g">250g - R$27.00</option><option value="1kg">1kg - R$97.00</option><option value="100g">100g - R$13.50</option></select>
+            <div class="controles"><button class="btn-qtd" onclick="qtd('trad_${i}',-1)">-</button><span class="qtd-num" id="q_trad_${i}">0</span><button class="btn-qtd" onclick="qtd('trad_${i}',1)">+</button></div></div></div>`;
+        });
+        document.getElementById('listaTradicional').innerHTML = hTrad;
     }
 
-    msg += `----------------------------\n`;
-    msg += `*TOTAL: R$ ${t}*`;
+    function addTrufa() { let s = document.getElementById('selectSabor').value.split('|'); carrinhoTrufas.push({sabor: s[0], preco: parseFloat(s[1])}); renderSacola(); }
+    function renderSacola() { document.getElementById('sacola').style.display = carrinhoTrufas.length ? 'block' : 'none'; document.getElementById('itensSacola').innerHTML = carrinhoTrufas.map((t, i) => `<div style="display:flex; justify-content:space-between; margin:5px 0;">${t.sabor} <button onclick="removerTrufa(${i})" style="color:red; background:none; border:none; font-weight:bold;">X</button></div>`).join(''); calc(); }
+    function removerTrufa(i) { carrinhoTrufas.splice(i, 1); renderSacola(); }
+    function qtd(id, m) { let el = document.getElementById('q_'+id); let v = parseInt(el.innerText)+m; if(v>=0){ el.innerText=v; calc(); } }
 
-    window.open(`https://wa.me/5581989873733?text=${encodeURIComponent(msg)}`);
-}
+    function calc() {
+        let total = 0;
+        carrinhoTrufas.forEach(t => total += t.preco);
+        for(let i=0; i<15; i++){ 
+            let qColher = parseInt(document.getElementById('q_colher_'+i).innerText);
+            if(qColher > 0) {
+                let v = precosColher[document.getElementById('p_colher_'+i).value];
+                if(document.getElementById('r_colher_'+i).value.includes("Ninho") || document.getElementById('r_colher_'+i).value.includes("Pistache")) v += 5;
+                total += qColher * v;
+            }
+        }
+        for(let i=0; i<7; i++){ 
+            let qTruf = parseInt(document.getElementById('q_truf_'+i).innerText); 
+            if(qTruf > 0) total += qTruf * precosTrufado[document.getElementById('p_truf_'+i).value]; 
+        }
+        for(let i=0; i<5; i++){ let qTrad = parseInt(document.getElementById('q_trad_'+i).innerText); if(qTrad > 0) total += qTrad * precosTrad[document.getElementById('p_trad_'+i).value]; }
+        document.getElementById('totalExibido').innerText = total.toFixed(2);
+    }
 
-        window.onload = init;
-    </script>
+    function enviarPedido() {
+        let n = document.getElementById('nome').value;
+        let end = document.getElementById('endereco').value;
+        let pag = document.getElementById('pagamento').value;
+        let total = document.getElementById('totalExibido').innerText;
+
+        if(!n || total === "0.00") return alert("Preencha seu nome e escolha os produtos!");
+
+        let texto = `*NOVO PEDIDO - CHOCOMELK*\n\n`;
+        texto += `*Cliente:* ${n}\n`;
+        texto += `*Endereço:* ${end}\n`;
+        texto += `*Pagamento:* ${pag}\n`;
+        texto += `--------------------------------\n`;
+        texto += `*ITENS:*\n`;
+
+        // Ovos de Colher
+        for(let i=0; i<15; i++){
+            let q = parseInt(document.getElementById('q_colher_'+i).innerText);
+            if(q > 0){
+                let tam = document.getElementById('p_colher_'+i).value;
+                let recheio = document.getElementById('r_colher_'+i).value;
+                texto += `🍫 ${q}x ${nomesOvosColher[i]} (${tam}) - Recheio: ${recheio}\n`;
+            }
+        }
+
+        // Ovos Trufados
+        for(let i=0; i<7; i++){
+            let q = parseInt(document.getElementById('q_truf_'+i).innerText);
+            if(q > 0){
+                let tam = document.getElementById('p_truf_'+i).value;
+                texto += `✨ ${q}x Ovo Trufado ${saboresTrufados[i]} (${tam})\n`;
+            }
+        }
+
+        // Ovos Tradicionais
+        for(let i=0; i<5; i++){
+            let q = parseInt(document.getElementById('q_trad_'+i).innerText);
+            if(q > 0){
+                let tam = document.getElementById('p_trad_'+i).value;
+                texto += `🐣 ${q}x Ovo Tradicional ${tiposTrad[i]} (${tam})\n`;
+            }
+        }
+
+        // Trufas
+        if(carrinhoTrufas.length > 0){
+            texto += `🍬 *Trufas:* ${carrinhoTrufas.length} un. (${carrinhoTrufas.map(t => t.sabor).join(', ')})\n`;
+        }
+
+        texto += `--------------------------------\n`;
+        texto += `*TOTAL DO PEDIDO: R$ ${total}*`;
+
+        let url = `https://wa.me/5581989873733?text=${encodeURIComponent(texto)}`;
+        window.open(url);
+    }
+
+    window.onload = init;
+</script>
+
+         
 </body>
 </html>
